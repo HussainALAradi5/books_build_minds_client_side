@@ -2,6 +2,14 @@
 
 This is the **client** repository for Books Builds Minds. The matching [server repository](../server/README.md) provides the catalog, authentication, permissions, uploads, workflows, and demo data. The [documentation repository](../documentation/README.md) describes each service and endpoint. These links work when the three repositories are cloned as sibling folders.
 
+## Preview
+
+![Books Builds Minds home page in desktop light mode](docs/screenshots/home-desktop-light.png)
+
+![Books Builds Minds home page in mobile dark mode](docs/screenshots/home-mobile-dark.png)
+
+[View all desktop, mobile, light, and dark screenshots](docs/screenshots/README.md).
+
 ## Run locally
 
 Node.js 20.9+ is required. Start the server first, then:
