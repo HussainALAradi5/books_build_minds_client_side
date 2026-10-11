@@ -2,6 +2,16 @@
 
 This is the **client** repository for Books Builds Minds. The matching [server repository](../server/README.md) provides the catalog, authentication, permissions, uploads, workflows, and demo data. The [documentation repository](../documentation/README.md) describes each service and endpoint. These links work when the three repositories are cloned as sibling folders.
 
+## Related repositories
+
+| Repository | Local link | What it contains |
+| --- | --- | --- |
+| Client | This repository | Next.js pages, Chakra UI components, hooks, typed API services, and screenshots |
+| Server | [Open server repository](../server/README.md) | Flask API, business rules, PostgreSQL models, migrations, and demo seeding |
+| Documentation | [Open documentation repository](../documentation/README.md) | Setup guides and feature-by-feature service and endpoint references |
+
+The three folders are independent Git repositories. Their local links require a sibling checkout; GitHub URLs can be added after those repositories are created.
+
 ## Preview
 
 ![Books Builds Minds home page in desktop light mode](docs/screenshots/home-desktop-light.png)
@@ -10,17 +20,36 @@ This is the **client** repository for Books Builds Minds. The matching [server r
 
 [View all desktop, mobile, light, and dark screenshots](docs/screenshots/README.md).
 
+The [workflow screenshots](docs/screenshots/workflows/README.md) show registration, borrowing, purchase and receipt access, reviews, employee profile, and admin management.
+
 ## Run locally
 
-Node.js 20.9+ is required. Start the server first, then:
+Node.js 20.9+ is required.
 
-```powershell
-Copy-Item .env.example .env.local
-npm ci
-npm run dev
-```
+1. Follow the [server setup](../server/README.md) to run Flask and seed the test accounts.
+2. Install client dependencies and create local configuration:
 
-Set `BACKEND_URL` in `.env.local` to the Flask origin, such as `http://127.0.0.1:5050`. Open `http://localhost:3000`. The client has no separate demo catalog; `flask --app app seed-demo` populates server data. Never commit `.env.local`.
+   ```powershell
+   Copy-Item .env.example .env.local
+   npm ci
+   ```
+
+3. Set both `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` in `.env.local` to the Flask origin, normally `http://127.0.0.1:5000`. The first is used by server functions; the second loads media and connects Socket.IO in the browser.
+4. Start Next.js with `npm run dev`, then open `http://localhost:3000`.
+
+The client has no separate demo catalog; `flask --app app seed-demo --test-accounts` populates server data. Never commit `.env.local`.
+
+## Test the user journeys
+
+After running `seed-demo --test-accounts` on the server, sign in at `/login`:
+
+| Role | Username | Password | Try this |
+| --- | --- | --- | --- |
+| Administrator | `demo_admin` | `LibraryAdmin2026!` | Open **Admin** to manage books, inventory, authors, publishers, roles, groups, and permissions. |
+| Employee | `demo_employee` | `LibraryStaff2026!` | Browse books, borrow or rent, purchase, and manage your own profile. Admin pages remain restricted. |
+| Client | `demo_client` | `LibraryReader2026!` | Borrow or rent a book, return it, purchase a book, download its receipt, then write a review. |
+
+Anonymous visitors can browse the catalog and reviews, and register as a client. The seeded `demo_visitor` record is inactive and cannot sign in. Employees currently start with the same member permissions as clients; an admin can assign extra roles or groups through access management. See the [step-by-step workflow guide](docs/screenshots/workflows/README.md).
 
 ## Structure
 

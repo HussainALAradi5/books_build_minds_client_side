@@ -4,6 +4,7 @@ import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
 import { accountRoleColors } from "@/constants/accounts/accountRoleColors";
 import { accountRoleLabels } from "@/constants/accounts/accountRoleLabels";
 import { Permission } from "@/enums/accounts/Permission";
+import { AccountRole } from "@/enums/accounts/AccountRole";
 import { hasPermission } from "@/lib/access";
 import { mediaUrl } from "@/lib/mediaUrl";
 import type { ProfileContentProps } from "@/props/profile/ProfileContentProps";
@@ -20,13 +21,13 @@ const ProfileContent = ({ user }: ProfileContentProps) => <Container maxW="6xl" 
     <Text color="green.700" _dark={{ color: "green.300" }} fontSize="xs" fontWeight="bold" letterSpacing="widest">YOUR READING SPACE</Text>
     <Heading as="h1" fontFamily="heading" fontWeight="medium" fontSize={{ base: "3xl", md: "5xl" }} mt="3">Welcome back, {user.userName}.</Heading>
     <Text color="fg.muted" mt="3">Your profile and collection live here.</Text>
-    <SimpleGrid columns={{ base: 1, sm: 3 }} gap="5" borderTopWidth="1px" borderBottomWidth="1px" py="5" my="7">
-      <Box><Text fontSize="xs" color="fg.muted">Email</Text><Text fontWeight="semibold" overflowWrap="anywhere">{user.email}</Text></Box>
+    <SimpleGrid columns={{ base: 1, sm: 2 }} gap="5" borderTopWidth="1px" borderBottomWidth="1px" py="5" my="7">
+      <Box gridColumn={{ base: "auto", sm: "1 / -1" }}><Text fontSize="xs" color="fg.muted">Email</Text><Text fontWeight="semibold" overflowWrap="anywhere">{user.email}</Text></Box>
       <Box><Text fontSize="xs" color="fg.muted">Account</Text><GenericStatusBadge value={user.role} labels={accountRoleLabels} colors={accountRoleColors} /></Box>
       <Box><Text fontSize="xs" color="fg.muted">Purchased books</Text><Text fontWeight="semibold">{user.purchasedBooks.length}</Text></Box>
     </SimpleGrid>
     <ProfilePictureUpload />
-    {hasPermission(user, Permission.BookReadAny) && <HStack mt="6"><Button asChild colorPalette="green"><Link href="/admin">Open admin panel →</Link></Button></HStack>}
+    {user.role === AccountRole.Admin && hasPermission(user, Permission.BookReadAny) && <HStack mt="6"><Button asChild colorPalette="green"><Link href="/admin">Open admin panel →</Link></Button></HStack>}
   </Box>
   <LoansPanel userId={user.userId} />
   <ActivityPanel userId={user.userId} />
