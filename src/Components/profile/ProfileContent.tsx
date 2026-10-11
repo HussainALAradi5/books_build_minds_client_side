@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Box, Button, Container, Heading, HStack, Image, Link as ChakraLink, SimpleGrid, Text } from "@chakra-ui/react";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
-import { AccountRole } from "@/enums/accounts/AccountRole";
 import { accountRoleColors } from "@/constants/accounts/accountRoleColors";
 import { accountRoleLabels } from "@/constants/accounts/accountRoleLabels";
+import { Permission } from "@/enums/accounts/Permission";
+import { hasPermission } from "@/lib/access";
 import { mediaUrl } from "@/lib/mediaUrl";
 import type { ProfileContentProps } from "@/props/profile/ProfileContentProps";
 import LoansPanel from "./LoansPanel";
@@ -25,7 +26,7 @@ const ProfileContent = ({ user }: ProfileContentProps) => <Container maxW="6xl" 
       <Box><Text fontSize="xs" color="fg.muted">Purchased books</Text><Text fontWeight="semibold">{user.purchasedBooks.length}</Text></Box>
     </SimpleGrid>
     <ProfilePictureUpload />
-    {user.role === AccountRole.Admin && <HStack mt="6"><Button asChild colorPalette="green"><Link href="/admin">Open admin panel →</Link></Button></HStack>}
+    {hasPermission(user, Permission.BookReadAny) && <HStack mt="6"><Button asChild colorPalette="green"><Link href="/admin">Open admin panel →</Link></Button></HStack>}
   </Box>
   <LoansPanel userId={user.userId} />
   <ActivityPanel userId={user.userId} />

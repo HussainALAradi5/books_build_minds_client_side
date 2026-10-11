@@ -8,6 +8,7 @@ export interface User extends BaseEntity {
   email: string;
   isActive: boolean;
   role: AccountRole;
+  permissions: string[];
   purchasedBooks: number[];
   receipts: Receipt[];
   profilePictureUrl: string | null;

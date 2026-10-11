@@ -3,6 +3,7 @@ node_modules/
 .next-output/
 .next-preview/
 .next-build-check/
+.next-*/
 .env
 .env.local
 *.log

@@ -6,7 +6,9 @@ import CustomButton from "@/Components/custom/CustomButton";
 import Brand from "@/Components/custom/Brand";
 import { Box, Flex, HStack, Link as ChakraLink, Text } from "@chakra-ui/react";
 import { useColorMode } from "@/hooks/ui/useColorMode";
+import { Permission } from "@/enums/accounts/Permission";
 import { AccountRole } from "@/enums/accounts/AccountRole";
+import { hasPermission } from "@/lib/access";
 
 const SiteHeader = () => {
   const { user, busy, error, logout } = useHeaderSession();
@@ -17,7 +19,7 @@ const SiteHeader = () => {
       <HStack as="nav" aria-label="Main navigation" gap={{ base: "2", md: "5" }} wrap="wrap" fontSize="sm" fontWeight="semibold">
         <ChakraLink asChild><Link href="/">Explore books</Link></ChakraLink>
         <CustomButton appearance="ghost" onClick={toggle} aria-label={`Switch to ${dark ? "light" : "dark"} mode`}>{dark ? "☀ Light" : "☾ Dark"}</CustomButton>
-        {user ? <><ChakraLink asChild><Link href="/profile">My profile</Link></ChakraLink>{user.role === AccountRole.Admin && <ChakraLink asChild><Link href="/admin">Admin</Link></ChakraLink>}<CustomButton appearance="secondary" loading={busy} onClick={logout}>Sign out</CustomButton></> : <><ChakraLink asChild><Link href="/login">Sign in</Link></ChakraLink><ChakraLink asChild color="green.700" _dark={{ color: "green.300" }}><Link href="/register">Join the club ↗</Link></ChakraLink></>}
+        {user ? <><ChakraLink asChild><Link href="/profile">My profile</Link></ChakraLink>{user.role === AccountRole.Admin && hasPermission(user, Permission.BookReadAny) && <ChakraLink asChild><Link href="/admin">Admin</Link></ChakraLink>}<CustomButton appearance="secondary" loading={busy} onClick={logout}>Sign out</CustomButton></> : <><ChakraLink asChild><Link href="/login">Sign in</Link></ChakraLink><ChakraLink asChild color="green.700" _dark={{ color: "green.300" }}><Link href="/register">Join the club ↗</Link></ChakraLink></>}
       </HStack>{error && <Text role="alert" color="red.500" fontSize="sm">{error}</Text>}
     </Flex>
   </Box>;

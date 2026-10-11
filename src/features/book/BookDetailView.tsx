@@ -3,7 +3,8 @@ import BookDetailContent from "@/Components/books/BookDetailContent";
 import { getBook } from "@/lib/server-api";
 import { getSessionUser } from "@/lib/session";
 import type { BookPageProps } from "@/props/books/BookPageProps";
-import { AccountRole } from "@/enums/accounts/AccountRole";
+import { Permission } from "@/enums/accounts/Permission";
+import { hasPermission } from "@/lib/access";
 
 const BookDetailView = async ({ params }: BookPageProps) => {
   const { slug } = await params;
@@ -11,7 +12,7 @@ const BookDetailView = async ({ params }: BookPageProps) => {
   if (!book) notFound();
   const user = await getSessionUser();
   const purchased = Boolean(user?.purchasedBooks.includes(book.bookId));
-  return <BookDetailContent book={book} signedIn={Boolean(user)} purchased={purchased} userId={user?.userId ?? null} isAdmin={user?.role === AccountRole.Admin} />;
+  return <BookDetailContent book={book} signedIn={Boolean(user)} purchased={purchased} userId={user?.userId ?? null} isAdmin={hasPermission(user, Permission.BookEditAny)} />;
 };
 
 export default BookDetailView;

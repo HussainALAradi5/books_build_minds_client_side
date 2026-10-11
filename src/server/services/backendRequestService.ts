@@ -12,6 +12,7 @@ const allowed = [
   /^\/book\/[a-zA-Z0-9_.-]+\/review\/(?:\d+|mine)$/, /^\/profile\/\d+(?:\/(?:edit|books|activities|loans))?$/,
   /^\/admin-requests(?:\/\d+)?$/, /^\/media\/books\/\d+$/, /^\/media\/profile-picture$/,
   /^\/countries(?:\/sync)?$/, /^\/authors(?:\/\d+)?$/, /^\/publishers(?:\/\d+)?$/,
+  /^\/access\/(?:permissions|roles|groups)(?:\/[^/]+)?$/, /^\/access\/users(?:\/\d+)?$/,
 ];
 
 const backendPath = (path: string, method: string) => {

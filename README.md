@@ -1,6 +1,10 @@
-# Books Builds Minds client
+# Books Builds Minds — client repository
 
-Next.js App Router client with TypeScript and Chakra UI. Node.js 20.9 or newer is required.
+This is the **client** repository for Books Builds Minds. The matching [server repository](../server/README.md) provides the catalog, authentication, permissions, uploads, workflows, and demo data. The [documentation repository](../documentation/README.md) describes each service and endpoint. These links work when the three repositories are cloned as sibling folders.
+
+## Run locally
+
+Node.js 20.9+ is required. Start the server first, then:
 
 ```powershell
 Copy-Item .env.example .env.local
@@ -8,8 +12,30 @@ npm ci
 npm run dev
 ```
 
-Set `BACKEND_URL` in `.env.local` to the Flask origin and open `http://localhost:3000`. Catalog sample data is seeded by the server; the client has no separate demo catalog. Browser actions use typed services and one `apiClient` utility that calls protected Next.js server functions. Authentication uses HttpOnly cookies. Public book and review reads remain available without a session; purchases, review writing, account actions, and administration require authorization on the server.
+Set `BACKEND_URL` in `.env.local` to the Flask origin, such as `http://127.0.0.1:5050`. Open `http://localhost:3000`. The client has no separate demo catalog; `flask --app app seed-demo` populates server data. Never commit `.env.local`.
 
-Route pages in `src/app` render feature views. Render components live under `src/Components`, behavior under `src/hooks`, server calls under `src/services`, and contracts under `src/interfaces`, `src/props`, and `src/enums`. Each entity interface extends `BaseEntity`; request filters extend `PaginationFilter`. Comments and ratings are combined in purchase-gated reviews. The review form and list are under `books/reviews`.
+## Structure
 
-Run `npm run typecheck`, `npm run lint`, and `npm run build` before deployment. The client and server are separate local Git repositories.
+| Path | Purpose |
+| --- | --- |
+| `src/app` | Thin Next.js route pages and layouts |
+| `src/features` | Feature view composition and access guards |
+| `src/Components/custom` | Reusable Chakra UI buttons, forms, tables, filters, pagination, dialogs, and upload controls |
+| `src/Components/*` | Feature render components, including the admin access page |
+| `src/hooks` and `src/providers` | State, actions, and feature context |
+| `src/services` | Typed API functions using the shared `apiClient` |
+| `src/interfaces`, `src/props`, `src/enums` | Client contracts, component props, enum labels and colors |
+| `src/server` | Protected Next.js server functions and backend request forwarding |
+| `docs/screenshots` | Desktop and mobile light/dark screenshots |
+
+The browser uses typed service functions and an HttpOnly session cookie. Public catalog and review reads work without a session. The API enforces all protected actions; client guards only control what the user sees. Reviews combine a rating, comment, and optional description, and require a purchase.
+
+## Verify
+
+```powershell
+npm run typecheck
+npm run lint
+npm run build
+```
+
+See the [screenshot index](docs/screenshots/README.md) and the [feature documentation](../documentation/README.md). The repositories have no GitHub remote configured yet; add each remote after creating the corresponding GitHub repository.
