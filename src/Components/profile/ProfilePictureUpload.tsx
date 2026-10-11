@@ -1,14 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import FileDropzone from "@/Components/media/FileDropzone";
-import { media } from "@/services/media";
+import { Box } from "@chakra-ui/react";
+import GenericUpload from "@/Components/custom/GenericUpload";
+import { useProfilePictureUpload } from "@/hooks/media/useProfilePictureUpload";
 
-export default function ProfilePictureUpload() {
-  const router = useRouter();
-  return <div className="profile-upload"><FileDropzone label="Profile picture" accept="image/png,image/jpeg,image/gif,image/webp" maxFiles={1}
-    onUpload={async (files) => { await media.uploadProfilePicture(files); router.refresh(); }} /></div>;
-}
+const ProfilePictureUpload = () => {
+  const upload = useProfilePictureUpload();
+  return <Box mt="7"><GenericUpload label="Profile picture" accept="image/png,image/jpeg,image/gif,image/webp" maxFiles={1} onUpload={upload} /></Box>;
+};
 
-
-
+export default ProfilePictureUpload;

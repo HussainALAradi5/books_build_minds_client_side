@@ -1,11 +1,12 @@
 import { cookies } from "next/headers";
 import { backendUrl } from "./server-api";
-import type { User } from "./types";
+import { fromBackend } from "./caseConversion";
+import type { User } from "@/interfaces/accounts/User";
 
 export const TOKEN_COOKIE = "bbm_session";
 export const USER_COOKIE = "bbm_user";
 
-export async function getSessionUser(): Promise<User | null> {
+export const getSessionUser = async (): Promise<User | null> => {
   const jar = await cookies();
   const token = jar.get(TOKEN_COOKIE)?.value;
   const userId = jar.get(USER_COOKIE)?.value;
@@ -16,8 +17,6 @@ export async function getSessionUser(): Promise<User | null> {
       cache: "no-store",
       signal: AbortSignal.timeout(3000),
     });
-    return response.ok ? (await response.json()) as User : null;
+    return response.ok ? fromBackend<User>(await response.json()) : null;
   } catch { return null; }
-}
-
-
+};

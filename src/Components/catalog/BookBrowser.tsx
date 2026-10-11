@@ -1,39 +1,35 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import BookCard from "@/Components/catalog/BookCard";
-import PaginationControls from "@/Components/shared/PaginationControls";
-import { demoBookPage } from "@/lib/demo-pagination";
-import { usePaginatedResource } from "@/hooks/pagination/usePaginatedResource";
-import { books, type BookFilters } from "@/services/books";
-import type { BookSummaryDto, PageDto } from "@/lib/types";
+import { Box, Heading, Input, NativeSelect, SimpleGrid, Text, Flex } from "@chakra-ui/react";
+import GenericFilter from "@/Components/custom/GenericFilter";
+import GenericPagination from "@/Components/custom/GenericPagination";
+import { BookStatus, bookStatusLabels } from "@/enums/books/BookStatus";
+import { enumOptions } from "@/lib/enumOptions";
+import { useBookCatalog } from "@/hooks/books/useBookCatalog";
+import { SortDirection, sortDirectionLabels } from "@/enums/shared/SortDirection";
+import type { BookBrowserProps } from "@/props/catalog/BookBrowserProps";
 
-export default function BookBrowser({ initialPage, demo }: { initialPage: PageDto<BookSummaryDto>; demo: boolean }) {
-  const [form, setForm] = useState({ q: "", publisher: "", min_price: "", max_price: "", sort: "recent" });
-  const load = demo ? async (filters: BookFilters) => demoBookPage(filters) : books.all;
-  const { result, query, loading, error, run } = usePaginatedResource(initialPage, load, { page: 1, per_page: 3 } as BookFilters);
+const BookBrowser = ({ initialPage }: BookBrowserProps) => {
+  const { form, update, result, loading, error, apply, clear, pageChange } = useBookCatalog(initialPage);
 
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    void run({ page: 1, per_page: 3, q: form.q, publisher: form.publisher,
-      min_price: form.min_price ? Number(form.min_price) : undefined,
-      max_price: form.max_price ? Number(form.max_price) : undefined,
-      sort: form.sort as BookFilters["sort"] });
-  }
+  return <Box as="section" id="catalog" maxW="7xl" mx="auto" py={{ base: "14", md: "20" }} px={{ base: "4", md: "8" }}>
+    <Flex align="end" justify="space-between" gap="4" mb="8"><Box><Text color="green.700" _dark={{ color: "green.300" }} fontSize="xs" fontWeight="bold" letterSpacing="widest">CURATED FOR CURIOUS MINDS</Text><Heading as="h2" fontFamily="heading" fontWeight="medium" fontSize={{ base: "3xl", md: "5xl" }} mt="3">Find your next great read.</Heading></Box><Text color="fg.muted" fontSize="sm" whiteSpace="nowrap">{result.pagination.total} books</Text></Flex>
+    <GenericFilter onApply={apply} onClear={clear} loading={loading}>
+      <Input aria-label="Search books" placeholder="Title, author, publisher, or ISBN" value={form.q} onChange={(event) => update("q", event.target.value)} flex={{ base: "1 1 100%", md: "2 1 250px" }} />
+      <Input aria-label="Publisher" placeholder="Publisher" value={form.publisher} onChange={(event) => update("publisher", event.target.value)} flex="1 1 130px" />
+      <NativeSelect.Root flex="1 1 140px"><NativeSelect.Field aria-label="Book condition" value={form.condition} onChange={(event) => update("condition", event.target.value as BookStatus | "")}>
+        <option value="">All conditions</option>{enumOptions(BookStatus, bookStatusLabels).map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
+      </NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root>
+      <Input type="number" min="0" step="0.01" aria-label="Minimum price" placeholder="Min BHD" value={form.minPrice} onChange={(event) => update("minPrice", event.target.value)} flex="1 1 95px" maxW="130px" />
+      <Input type="number" min="0" step="0.01" aria-label="Maximum price" placeholder="Max BHD" value={form.maxPrice} onChange={(event) => update("maxPrice", event.target.value)} flex="1 1 95px" maxW="130px" />
+      <NativeSelect.Root flex="1 1 140px"><NativeSelect.Field aria-label="Sort books" value={form.sort} onChange={(event) => update("sort", event.target.value as typeof form.sort)}><option value="recent">Date added</option><option value="title">Title</option><option value="rating">Rating</option><option value="price">Price</option></NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root>
+      <NativeSelect.Root flex="1 1 130px"><NativeSelect.Field aria-label="Sort direction" value={form.sortDirection} onChange={(event) => update("sortDirection", event.target.value as SortDirection)}>{Object.values(SortDirection).map((value) => <option key={value} value={value}>{sortDirectionLabels[value]}</option>)}</NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root>
+    </GenericFilter>
+    {error && <Text color="red.500" role="alert" mt="4">{error}</Text>}
+    {result.items.length ? <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap="8" mt="8">{result.items.map((book) => <BookCard key={book.bookId} book={book} />)}</SimpleGrid> : <Box bg="bg.subtle" p="10" textAlign="center" mt="8">No books match these filters.</Box>}
+    <GenericPagination pagination={result.pagination} onPageChange={(page) => void pageChange(page)} loading={loading} />
+  </Box>;
+};
 
-  function clear() {
-    setForm({ q: "", publisher: "", min_price: "", max_price: "", sort: "recent" });
-    void run({ page: 1, per_page: 3 });
-  }
-
-  return <section className="catalog" id="catalog">
-    <div className="section-heading"><div><span className="eyebrow">CURATED FOR CURIOUS MINDS</span><h2>Find your next great read.</h2></div><span className="book-count">{result.pagination.total} books</span></div>
-    <form onSubmit={submit} className="catalog-controls"><label className="search-field"><span aria-hidden>⌕</span><input aria-label="Search books" placeholder="Title, author, publisher, or ISBN" value={form.q} onChange={(event) => setForm({ ...form, q: event.target.value })} /></label><input className="filter-input" aria-label="Publisher" placeholder="Publisher" value={form.publisher} onChange={(event) => setForm({ ...form, publisher: event.target.value })} /><input className="filter-input price-input" type="number" min="0" step="0.01" aria-label="Minimum price" placeholder="Min BHD" value={form.min_price} onChange={(event) => setForm({ ...form, min_price: event.target.value })} /><input className="filter-input price-input" type="number" min="0" step="0.01" aria-label="Maximum price" placeholder="Max BHD" value={form.max_price} onChange={(event) => setForm({ ...form, max_price: event.target.value })} /><label className="sort-field"><span>Sort</span><select value={form.sort} onChange={(event) => setForm({ ...form, sort: event.target.value })}><option value="recent">Newest</option><option value="title">Title</option><option value="rating">Top rated</option><option value="price_asc">Price: low</option><option value="price_desc">Price: high</option></select></label><button className="filter-button" disabled={loading}>Apply</button><button className="clear-button" type="button" onClick={clear}>Clear</button></form>
-    {error && <p className="form-error" role="alert">{error}</p>}
-    {result.items.length ? <div className="book-grid">{result.items.map((book) => <BookCard key={book.book_id} book={book} />)}</div> : <div className="empty-state">No books match these filters.</div>}
-    <PaginationControls pagination={result.pagination} onPageChange={(page) => void run({ ...query, page })} loading={loading} />
-  </section>;
-}
-
-
-
+export default BookBrowser;

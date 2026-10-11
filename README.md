@@ -1,15 +1,15 @@
 # Books Builds Minds client
 
-Next.js App Router, React, and TypeScript client. Requires Node.js 20.9 or newer.
+Next.js App Router client with TypeScript and Chakra UI. Node.js 20.9 or newer is required.
 
-```bash
-cp .env.example .env.local
+```powershell
+Copy-Item .env.example .env.local
 npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000`. Set `BACKEND_URL` in `.env.local` to the Flask origin, such as `http://127.0.0.1:5000`. The browser talks to Next.js `/api/backend`; authentication uses HttpOnly cookies. `DEMO_CATALOG=true` enables the preview catalog in production, if desired.
+Set `BACKEND_URL` in `.env.local` to the Flask origin and open `http://localhost:3000`. Catalog sample data is seeded by the server; the client has no separate demo catalog. Browser actions use typed services and one `apiClient` utility that calls protected Next.js server functions. Authentication uses HttpOnly cookies. Public book and review reads remain available without a session; purchases, review writing, account actions, and administration require authorization on the server.
 
-Checks: `npm run typecheck`, `npm run lint`, `npm run build`.
+Route pages in `src/app` render feature views. Render components live under `src/Components`, behavior under `src/hooks`, server calls under `src/services`, and contracts under `src/interfaces`, `src/props`, and `src/enums`. Each entity interface extends `BaseEntity`; request filters extend `PaginationFilter`. Comments and ratings are combined in purchase-gated reviews. The review form and list are under `books/reviews`.
 
-Route pages in `src/app` render views in `src/features`. Reusable components are grouped under `src/Components`, with contracts in `src/enums`, `src/interfaces`, and `src/props`. API clients are in `src/services`, hooks under `src/hooks`, and session context in `src/providers`.
+Run `npm run typecheck`, `npm run lint`, and `npm run build` before deployment. The client and server are separate local Git repositories.

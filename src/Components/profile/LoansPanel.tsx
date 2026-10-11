@@ -1,35 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
-import PaginationControls from "@/Components/shared/PaginationControls";
-import { LoanStatus, type LoanDto, type PageDto } from "@/lib/types";
-import { loans } from "@/services/loans";
+import GenericPagination from "@/Components/custom/GenericPagination";
+import CustomButton from "@/Components/custom/CustomButton";
+import GenericTable from "@/Components/custom/GenericTable";
+import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
+import type { TableColumn } from "@/props/custom/tables/TableColumn";
+import { LoanStatus, loanStatusColors, loanStatusLabels } from "@/enums/library/LoanStatus";
+import { enumOptions } from "@/lib/enumOptions";
+import type { Loan } from "@/interfaces/library/Loan";
+import type { LoansPanelProps } from "@/props/profile/LoansPanelProps";
+import { useLoansPanel } from "@/hooks/profile/useLoansPanel";
+import { Box, Field, Flex, Heading, Link as ChakraLink, NativeSelect, Text } from "@chakra-ui/react";
 
-export default function LoansPanel({ userId }: { userId: number }) {
-  const [page, setPage] = useState(1);
-  const [status, setStatus] = useState<LoanStatus | "all">("all");
-  const [result, setResult] = useState<PageDto<LoanDto> | null>(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const load = useCallback(async () => {
-    setLoading(true); setError("");
-    try { setResult(await loans.all(userId, page, status)); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not load loans."); }
-    finally { setLoading(false); }
-  }, [userId, page, status]);
-  useEffect(() => { queueMicrotask(() => void load()); }, [load]);
-  async function returnBook(slug: string) {
-    try { await loans.return(slug); await load(); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not return book."); }
-  }
-  return <section className="profile-loans"><div className="section-heading"><h2>Your loans</h2><label>Show <select value={status} onChange={(event) => { setStatus(event.target.value as LoanStatus | "all"); setPage(1); }}><option value="all">All</option><option value={LoanStatus.Active}>Active</option><option value={LoanStatus.Overdue}>Overdue</option><option value={LoanStatus.Returned}>Returned</option></select></label></div>
-    {error && <p role="alert" className="form-error">{error}</p>}
-    {loading && <p>Loading loans...</p>}
-    {result && (result.items.length ? <ul className="loan-list">{result.items.map((loan) => <li key={loan.loan_id}><div><Link href={`/book/${loan.book_slug}`}>{loan.book_title}</Link><small>{loan.status} · Due {new Date(loan.due_at).toLocaleDateString()}</small></div>{loan.status !== LoanStatus.Returned && <button className="secondary-button" onClick={() => void returnBook(loan.book_slug)}>Return</button>}</li>)}</ul> : <p>No loans in this view.</p>)}
-    {result && <PaginationControls pagination={result.pagination} onPageChange={setPage} loading={loading} />}
-  </section>;
-}
+const LoansPanel = ({ userId }: LoansPanelProps) => {
+  const { setPage, status, changeStatus, result, error, loading, returnBook } = useLoansPanel(userId);
+  const columns: TableColumn<Loan>[] = [
+    { key: "book", header: "Book", render: (loan) => <ChakraLink asChild color="green.700" _dark={{ color: "green.300" }}><Link href={`/book/${loan.bookSlug}`}>{loan.bookTitle}</Link></ChakraLink> },
+    { key: "status", header: "Status", render: (loan) => <GenericStatusBadge value={loan.status} labels={loanStatusLabels} colors={loanStatusColors} /> },
+    { key: "due", header: "Due", render: (loan) => new Date(loan.dueAt).toLocaleDateString() },
+    { key: "kind", header: "Type", render: (loan) => loan.loanKind === "rent" ? `Rental · ${loan.rentalFee.toFixed(2)} BHD` : "Borrowed" },
+    { key: "action", header: "Action", render: (loan) => loan.status !== LoanStatus.Returned &&
+      <CustomButton appearance="secondary" onClick={() => returnBook(loan.bookSlug)}>Return</CustomButton> },
+  ];
+  return <Box as="section" mt="10"><Flex justify="space-between" align="center" wrap="wrap" gap="4" mb="5"><Heading as="h2" fontFamily="heading" fontSize="3xl">Your loans</Heading>
+    <Field.Root maxW="180px"><Field.Label>Show</Field.Label><NativeSelect.Root><NativeSelect.Field value={status} onChange={(event) => changeStatus(event.target.value as LoanStatus | "all")}><option value="all">All</option>{enumOptions(LoanStatus, loanStatusLabels).map(({ value, label }) => <option key={value} value={value}>{label}</option>)}</NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root></Flex>
+    {error && <Text role="alert" color="red.500">{error}</Text>}
+    {loading && <Text color="fg.muted">Loading loans...</Text>}
+    {result && <GenericTable rows={result.items} columns={columns} getKey={(loan) => loan.loanId} emptyMessage="No loans in this view." />}
+    {result && <GenericPagination pagination={result.pagination} onPageChange={setPage} loading={loading} />}
+  </Box>;
+};
 
-
-
+export default LoansPanel;

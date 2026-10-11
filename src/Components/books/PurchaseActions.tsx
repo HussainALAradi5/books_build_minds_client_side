@@ -1,24 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { books } from "@/services/books";
+import { Box, Button, Text } from "@chakra-ui/react";
+import CustomButton from "@/Components/custom/CustomButton";
+import { useBookPurchase } from "@/hooks/books/useBookPurchase";
+import { useReceiptDownload } from "@/hooks/receipts/useReceiptDownload";
+import type { PurchaseActionsProps } from "@/props/books/PurchaseActionsProps";
 
-export default function PurchaseActions({ slug, signedIn, purchased, demo }: { slug: string; signedIn: boolean; purchased: boolean; demo: boolean }) {
-  const [owned, setOwned] = useState(purchased);
-  const [message, setMessage] = useState("");
-  const [busy, setBusy] = useState(false);
-  async function purchase() {
-    setBusy(true); setMessage("");
-    try { await books.purchase(slug); setOwned(true); setMessage("Book added to your collection."); }
-    catch (cause) { setMessage(cause instanceof Error ? cause.message : "Purchase failed."); }
-    finally { setBusy(false); }
-  }
-  if (demo) return <p className="subtle-note">Preview catalog · Connect the API to purchase this book.</p>;
-  if (!signedIn) return <Link className="primary-button" href="/login">Sign in to purchase <span aria-hidden>→</span></Link>;
-  return <div className="purchase-actions">{owned ? <a className="primary-button" href={books.receiptUrl(slug)}>Download receipt ↓</a> : <button className="primary-button" onClick={purchase} disabled={busy}>{busy ? "Please wait..." : "Purchase book →"}</button>}{message && <p role="status">{message}</p>}</div>;
-}
+const PurchaseActions = ({ slug, signedIn, purchased }: PurchaseActionsProps) => {
+  const { owned, message, busy, purchase } = useBookPurchase(slug, purchased);
+  const receipt = useReceiptDownload(slug);
+  if (!signedIn) return <Button asChild colorPalette="green"><Link href="/login">Sign in to purchase →</Link></Button>;
+  return <Box my="6">
+    {owned ? <CustomButton appearance="primary" loading={receipt.busy} onClick={receipt.download}>Download receipt ↓</CustomButton> :
+      <CustomButton appearance="primary" loading={busy} onClick={purchase}>Purchase book →</CustomButton>}
+    {message && <Text role="status" mt="3">{message}</Text>}
+    {receipt.error && <Text role="alert" color="red.500" mt="3">{receipt.error}</Text>}
+  </Box>;
+};
 
-
-
-
+export default PurchaseActions;

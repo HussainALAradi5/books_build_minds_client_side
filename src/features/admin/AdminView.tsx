@@ -1,13 +1,12 @@
 import { redirect } from "next/navigation";
-import AdminBookForm from "@/Components/admin/AdminBookForm";
+import AdminContent from "@/Components/admin/AdminContent";
 import { getSessionUser } from "@/lib/session";
+import { AccountRole } from "@/enums/accounts/AccountRole";
 
-export default async function AdminView() {
-  const user = await getSessionUser(); if (!user?.is_admin) redirect("/");
-  return <div className="profile-shell"><span className="eyebrow">ADMINISTRATION</span><h1>Manage the collection.</h1><AdminBookForm /></div>;
-}
+const AdminView = async () => {
+  const user = await getSessionUser();
+  if (user?.role !== AccountRole.Admin) redirect("/");
+  return <AdminContent />;
+};
 
-
-
-
-
+export default AdminView;

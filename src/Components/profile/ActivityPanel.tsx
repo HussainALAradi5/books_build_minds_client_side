@@ -1,0 +1,34 @@
+"use client";
+
+import Link from "next/link";
+import { Box, Field, Heading, NativeSelect, Text } from "@chakra-ui/react";
+import GenericFilter from "@/Components/custom/GenericFilter";
+import GenericPagination from "@/Components/custom/GenericPagination";
+import GenericTable from "@/Components/custom/GenericTable";
+import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
+import type { TableColumn } from "@/props/custom/tables/TableColumn";
+import { LibraryActionType, libraryActionColors, libraryActionLabels } from "@/enums/library/LibraryActionType";
+import { enumOptions } from "@/lib/enumOptions";
+import type { LibraryActivity } from "@/interfaces/library/LibraryActivity";
+import type { ActivityPanelProps } from "@/props/profile/ActivityPanelProps";
+import { useActivityPanel } from "@/hooks/profile/useActivityPanel";
+
+const ActivityPanel = ({ userId }: ActivityPanelProps) => {
+  const { selected, setSelected, query, result, loading, error, apply, clear } = useActivityPanel(userId);
+  const columns: TableColumn<LibraryActivity>[] = [
+    { key: "book", header: "Book", render: (item) => <Link href={`/book/${item.bookSlug}`}>{item.bookTitle}</Link> },
+    { key: "action", header: "Action", render: (item) => <GenericStatusBadge value={item.actionType} labels={libraryActionLabels} colors={libraryActionColors} /> },
+    { key: "date", header: "Date", render: (item) => new Date(item.occurredAt).toLocaleDateString() },
+  ];
+  return <Box as="section" mt="12" maxW="3xl">
+    <Heading as="h2" fontFamily="heading" fontSize="3xl" mb="6">Library activity</Heading>
+    <GenericFilter onApply={() => apply(1)} onClear={clear} loading={loading}>
+      <Field.Root maxW="190px"><Field.Label>Action</Field.Label><NativeSelect.Root><NativeSelect.Field value={selected} onChange={(event) => setSelected(event.target.value as LibraryActionType | "all")}><option value="all">All</option>{enumOptions(LibraryActionType, libraryActionLabels).map(({ value, label }) => <option key={value} value={value}>{label}</option>)}</NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root>
+    </GenericFilter>
+    {error && <Text color="red.500" role="alert" mt="4">{error}</Text>}
+    <Box mt="5"><GenericTable rows={result.items} columns={columns} getKey={(item) => item.activityId} emptyMessage="No activity yet." /></Box>
+    <GenericPagination pagination={result.pagination} onPageChange={(page) => apply(page, query.action)} loading={loading} />
+  </Box>;
+};
+
+export default ActivityPanel;

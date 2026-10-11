@@ -1,21 +1,20 @@
-import type { BookSummaryDto } from "@/lib/types";
+import type { BookCoverProps } from "@/props/catalog/BookCoverProps";
+import { Box, Image, Text } from "@chakra-ui/react";
+import { mediaUrl } from "@/lib/mediaUrl";
+import { bookCoverPalette } from "@/features/catalog/bookCoverPalette";
 
-const styles = ["cover-plum", "cover-blue", "cover-sand", "cover-green", "cover-rose", "cover-ink"];
-
-export default function BookCover({ book, large = false }: { book: BookSummaryDto; large?: boolean }) {
-  if (book.book_image && /^(https:\/\/|\/static\/media\/)/.test(book.book_image)) {
-    // External cover hosts are user supplied, so image optimization is disabled here.
-    // eslint-disable-next-line @next/next/no-img-element
-    return <div className={`book-cover image-cover ${large ? "cover-large" : ""}`}><img src={book.book_image.startsWith("/static/") ? `/api/backend${book.book_image}` : book.book_image} alt={`${book.title} cover`} /></div>;
+const BookCover = ({ book, large = false }: BookCoverProps) => {
+  if (book.bookImage && /^(https:\/\/|\/static\/media\/)/.test(book.bookImage)) {
+    return <Image src={mediaUrl(book.bookImage)} alt={`${book.title} cover`} w="full" h={large ? "560px" : "320px"} objectFit="cover" borderRadius="sm" />;
   }
-  return <div className={`book-cover ${styles[(book.book_id - 1) % styles.length]} ${large ? "cover-large" : ""}`} aria-label={`${book.title} cover`}>
-    <span className="cover-top">BOOKS BUILD MINDS · THE COLLECTION</span>
-    <strong>{book.title}</strong><span className="cover-author">{book.author}</span>
-    <span className="cover-detail" aria-hidden>✳</span>
-  </div>;
-}
+  const palette = bookCoverPalette[(book.bookId - 1) % bookCoverPalette.length];
+  return <Box bg={palette.background} color={palette.foreground} h={large ? "560px" : "320px"} w="full" position="relative" display="flex" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center" p="8" borderRadius="sm" overflow="hidden" aria-label={`${book.title} cover`}>
+    <Box position="absolute" inset="3" border="1px solid" borderColor="whiteAlpha.400" pointerEvents="none" />
+    <Text position="absolute" top="8" fontSize="xs" fontWeight="bold" letterSpacing="widest">BOOKS BUILD MINDS · THE COLLECTION</Text>
+    <Text fontFamily="heading" fontWeight="semibold" fontSize={large ? { base: "4xl", md: "6xl" } : { base: "xl", md: "2xl" }} lineHeight="1.1" maxW="full" overflowWrap="normal" zIndex="1">{book.title}</Text>
+    <Text mt="4" fontSize="xs" letterSpacing="widest" textTransform="uppercase" zIndex="1">{book.author}</Text>
+    <Text position="absolute" bottom="3" fontSize="5xl" opacity="0.4" aria-hidden>✳</Text>
+  </Box>;
+};
 
-
-
-
-
+export default BookCover;

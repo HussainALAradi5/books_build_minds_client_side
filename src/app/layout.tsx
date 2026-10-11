@@ -1,18 +1,11 @@
-import type { Metadata } from "next";
-import SiteHeader from "@/Components/layout/SiteHeader";
-import SessionProvider from "@/providers/SessionProvider";
-import { getSessionUser } from "@/lib/session";
-import "./globals.css";
+import AppChrome from "@/Components/layout/AppChrome";
+import UiProvider from "@/providers/UiProvider";
+import type { RootLayoutProps } from "@/props/layout/RootLayoutProps";
 
-export const metadata: Metadata = { title: "Books Build Minds", description: "Find your next great read." };
+const RootLayout = ({ children }: RootLayoutProps) => {
+  return <html lang="en" suppressHydrationWarning><head><title>Books Build Minds</title><meta name="description" content="Find your next great read." /></head>
+    <body><UiProvider><AppChrome>{children}</AppChrome></UiProvider></body>
+  </html>;
+};
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const user = await getSessionUser();
-  return <html lang="en"><body><SessionProvider key={user?.user_id ?? "guest"} initialUser={user}><SiteHeader /><main>{children}</main></SessionProvider><footer className="site-footer"><span className="brand"><span className="brand-mark">B.</span> BOOKS BUILD MINDS</span><span>Good books. Open minds. © {new Date().getFullYear()}</span></footer></body></html>;
-}
-
-
-
-
-
-
+export default RootLayout;

@@ -1,33 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useSession } from "@/hooks/auth/useSession";
+import { useHeaderSession } from "@/hooks/auth/useHeaderSession";
+import CustomButton from "@/Components/custom/CustomButton";
+import Brand from "@/Components/custom/Brand";
+import { Box, Flex, HStack, Link as ChakraLink, Text } from "@chakra-ui/react";
+import { useColorMode } from "@/hooks/ui/useColorMode";
+import { AccountRole } from "@/enums/accounts/AccountRole";
 
-export default function SiteHeader() {
-  const { user, setUser } = useSession();
-  const router = useRouter();
-  const [busy, setBusy] = useState(false);
-  async function logout() {
-    setBusy(true);
-    await fetch("/api/auth/logout", { method: "POST" });
-    setUser(null);
-    router.push("/");
-    router.refresh();
-    setBusy(false);
-  }
-  return <header className="site-header">
-    <div className="header-inner">
-      <Link href="/" className="brand"><span className="brand-mark">B.</span><span>BOOKS <em>BUILD</em> MINDS</span></Link>
-      <nav aria-label="Main navigation">
-        <Link href="/">Explore books</Link>
-        {user ? <><Link href="/profile">My profile</Link>{user.is_admin && <Link href="/admin">Admin</Link>}<button type="button" onClick={logout} disabled={busy}>Sign out</button></> : <><Link href="/login">Sign in</Link><Link href="/register" className="nav-cta">Join the club <span aria-hidden>↗</span></Link></>}
-      </nav>
-    </div>
-  </header>;
-}
+const SiteHeader = () => {
+  const { user, busy, error, logout } = useHeaderSession();
+  const { dark, toggle } = useColorMode();
+  return <Box as="header" borderBottomWidth="1px" bg="bg.panel" position="relative" zIndex="10">
+    <Flex maxW="7xl" mx="auto" px={{ base: "4", md: "8" }} py="4" align="center" justify="space-between" gap="4" wrap="wrap">
+      <Brand />
+      <HStack as="nav" aria-label="Main navigation" gap={{ base: "2", md: "5" }} wrap="wrap" fontSize="sm" fontWeight="semibold">
+        <ChakraLink asChild><Link href="/">Explore books</Link></ChakraLink>
+        <CustomButton appearance="ghost" onClick={toggle} aria-label={`Switch to ${dark ? "light" : "dark"} mode`}>{dark ? "☀ Light" : "☾ Dark"}</CustomButton>
+        {user ? <><ChakraLink asChild><Link href="/profile">My profile</Link></ChakraLink>{user.role === AccountRole.Admin && <ChakraLink asChild><Link href="/admin">Admin</Link></ChakraLink>}<CustomButton appearance="secondary" loading={busy} onClick={logout}>Sign out</CustomButton></> : <><ChakraLink asChild><Link href="/login">Sign in</Link></ChakraLink><ChakraLink asChild color="green.700" _dark={{ color: "green.300" }}><Link href="/register">Join the club ↗</Link></ChakraLink></>}
+      </HStack>{error && <Text role="alert" color="red.500" fontSize="sm">{error}</Text>}
+    </Flex>
+  </Box>;
+};
 
-
-
-
+export default SiteHeader;
