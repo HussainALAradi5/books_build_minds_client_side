@@ -82,3 +82,7 @@ npm run build
 ```
 
 See the [screenshot index](docs/screenshots/README.md) and the [feature documentation](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md). The repositories have no GitHub remote configured yet; add each remote after creating the corresponding GitHub repository.
+
+## Print a book record
+
+On a book page, choose **Download book PDF** or **Show QR and barcode**. The server generates both codes and the printable document. Use a keyboard-mode scanner in catalog search to find the printed inventory identifier. See [printing setup](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/features/books/printing/README.md).

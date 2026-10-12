@@ -6,9 +6,9 @@ import { TOKEN_COOKIE } from "@/lib/session";
 import { fromBackend, toBackend } from "@/lib/caseConversion";
 import type { BackendResult } from "@/interfaces/shared/BackendResult";
 
-const publicGet = [/^\/$/, /^\/book\/(?!manage$|export$|import$|bulk$)[a-zA-Z0-9_.-]+$/, /^\/book\/[a-zA-Z0-9_.-]+\/review$/, /^\/media\/books\/\d+$/, /^\/(?:countries|authors|publishers)(?:\/\d+)?$/];
+const publicGet = [/^\/book\/[a-zA-Z0-9_.-]+\/(?:print|codes)$/, /^\/$/, /^\/book\/(?!manage$|export$|import$|bulk$)[a-zA-Z0-9_.-]+$/, /^\/book\/[a-zA-Z0-9_.-]+\/review$/, /^\/media\/books\/\d+$/, /^\/(?:countries|authors|publishers)(?:\/\d+)?$/];
 const allowed = [
-  /^\/$/, /^\/book$/, /^\/book\/[a-zA-Z0-9_.-]+(?:\/(?:purchase|receipt|loan|borrow|rent|return|review))?$/,
+  /^\/$/, /^\/book$/, /^\/book\/[a-zA-Z0-9_.-]+(?:\/(?:purchase|receipt|loan|borrow|rent|return|review|print|codes))?$/,
   /^\/book\/[a-zA-Z0-9_.-]+\/review\/(?:\d+|mine)$/, /^\/profile\/\d+(?:\/(?:edit|books|activities|loans))?$/,
   /^\/admin-requests(?:\/\d+)?$/, /^\/media\/books\/\d+$/, /^\/media\/profile-picture$/,
   /^\/countries(?:\/sync)?$/, /^\/authors(?:\/\d+)?$/, /^\/publishers(?:\/\d+)?$/,
