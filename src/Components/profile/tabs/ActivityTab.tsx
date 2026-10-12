@@ -13,14 +13,14 @@ import type { LibraryActivity } from "@/interfaces/library/LibraryActivity";
 import type { ActivityPanelProps } from "@/props/profile/ActivityPanelProps";
 import { useActivityPanel } from "@/hooks/profile/useActivityPanel";
 
-const ActivityPanel = ({ userId }: ActivityPanelProps) => {
+const ActivityTab = ({ userId }: ActivityPanelProps) => {
   const { selected, setSelected, query, result, loading, error, apply, clear } = useActivityPanel(userId);
   const columns: TableColumn<LibraryActivity>[] = [
     { key: "book", header: "Book", render: (item) => <Link href={`/book/${item.bookSlug}`}>{item.bookTitle}</Link> },
     { key: "action", header: "Action", render: (item) => <GenericStatusBadge value={item.actionType} labels={libraryActionLabels} colors={libraryActionColors} /> },
     { key: "date", header: "Date", render: (item) => new Date(item.occurredAt).toLocaleDateString() },
   ];
-  return <Box as="section" mt="12" maxW="3xl">
+  return <Box as="section" maxW="3xl">
     <Heading as="h2" fontFamily="heading" fontSize="3xl" mb="6">Library activity</Heading>
     <GenericFilter onApply={() => apply(1)} onClear={clear} loading={loading}>
       <Field.Root maxW="190px"><Field.Label>Action</Field.Label><NativeSelect.Root><NativeSelect.Field value={selected} onChange={(event) => setSelected(event.target.value as LibraryActionType | "all")}><option value="all">All</option>{enumOptions(LibraryActionType, libraryActionLabels).map(({ value, label }) => <option key={value} value={value}>{label}</option>)}</NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root>
@@ -31,4 +31,4 @@ const ActivityPanel = ({ userId }: ActivityPanelProps) => {
   </Box>;
 };
 
-export default ActivityPanel;
+export default ActivityTab;

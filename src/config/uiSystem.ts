@@ -1,7 +1,9 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
+import { animationKeyframes } from "@/constants/ui/animations/animationKeyframes";
 
 const config = defineConfig({
   theme: {
+    keyframes: animationKeyframes,
     tokens: {
       colors: {
         brand: {

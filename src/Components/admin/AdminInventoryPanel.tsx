@@ -21,7 +21,7 @@ const columns: TableColumn<BookSummary>[] = [
 
 const AdminInventoryPanel = () => {
   const { search, setSearch, result, loading, error, message, apply, clear, pageChange, exportRows, importRows, bulk } = useAdminInventory();
-  return <Box as="section" mt="12">
+  return <Box as="section">
     <Heading as="h2" fontFamily="heading" fontSize="3xl" mb="5">Inventory</Heading>
     <GenericFilter onApply={apply} onClear={clear} loading={loading}>
       <Input aria-label="Search inventory" placeholder="Search title, author, publisher or ISBN" value={search} onChange={(event) => setSearch(event.target.value)} maxW="420px" />

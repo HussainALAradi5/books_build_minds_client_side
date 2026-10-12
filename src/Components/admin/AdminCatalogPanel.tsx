@@ -7,7 +7,7 @@ import CatalogEditor from "./CatalogEditor";
 
 const AdminCatalogPanel = () => {
   const { busy, message, sync } = useCountrySync();
-  return <Box as="section" mt="12">
+  return <Box as="section">
     <Heading as="h2" fontFamily="heading" fontSize="3xl" mb="4">Catalog people &amp; places</Heading>
     <Text color="fg.muted" mb="4">Refresh the country reference data before assigning author and publisher countries.</Text>
     <CustomButton appearance="secondary" loading={busy} loadingText="Syncing..." onClick={sync}>Sync countries</CustomButton>

@@ -24,7 +24,7 @@ const AdminRequestsPanel = () => {
     </HStack> },
   ];
 
-  return <Box as="section" mt="12"><Heading as="h2" fontFamily="heading" fontSize="3xl" mb="5">Access requests</Heading>
+  return <Box as="section"><Heading as="h2" fontFamily="heading" fontSize="3xl" mb="5">Access requests</Heading>
     <GenericFilter onApply={() => apply({ page: 1, status })} onClear={clear} loading={loading}>
       <Field.Root maxW="190px"><Field.Label>Status</Field.Label><NativeSelect.Root><NativeSelect.Field value={status} onChange={(event) => setStatus(event.target.value as typeof status)}>
         <option value="pending">Pending</option><option value="all">All</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option>

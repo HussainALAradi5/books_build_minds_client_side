@@ -3,12 +3,12 @@ import { Box, Container, Grid, Heading, Link as ChakraLink, SimpleGrid, Text } f
 import BookCover from "@/Components/catalog/BookCover";
 import PurchaseActions from "./PurchaseActions";
 import LoanActions from "./LoanActions";
-import BookReviews from "./reviews/BookReviews";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
 import { bookStatusColors, bookStatusLabels } from "@/enums/books/BookStatus";
 import type { BookDetailContentProps } from "@/props/books/BookDetailContentProps";
-import AdminBookForm from "@/Components/admin/AdminBookForm";
-import CatalogProfile from "@/Components/catalog/CatalogProfile";
+import BookTabs from "./tabs/BookTabs";
+import GenericWorkflowGuide from "@/Components/custom/workflow/GenericWorkflowGuide";
+import { libraryGuideSteps } from "@/constants/workflow/libraryGuideSteps";
 
 const BookDetailContent = ({ book, signedIn, purchased, userId, isAdmin }: BookDetailContentProps) => <Container maxW="6xl" py={{ base: "8", md: "14" }}>
   <ChakraLink asChild color="green.700" _dark={{ color: "green.300" }} fontSize="sm" fontWeight="semibold"><Link href="/">← Back to books</Link></ChakraLink>
@@ -23,6 +23,7 @@ const BookDetailContent = ({ book, signedIn, purchased, userId, isAdmin }: BookD
       <Text color="fg.muted" lineHeight="tall" maxW="lg" mt="4">A book worth making room for on your shelf. Discover new perspectives, memorable stories, and the joy of reading.</Text>
       <LoanActions book={book} signedIn={signedIn} />
       <PurchaseActions slug={book.slug} signedIn={signedIn} purchased={purchased} />
+      <Box mt="4"><GenericWorkflowGuide title="Borrow, buy, and review" steps={libraryGuideSteps} /></Box>
       <SimpleGrid columns={{ base: 1, sm: 2 }} gap="4" borderTopWidth="1px" mt="8" pt="5" fontSize="sm">
         <Box><Text color="fg.muted">Publisher</Text><Text fontWeight="semibold">{book.publisher}</Text></Box>
         <Box><Text color="fg.muted">Published</Text><Text fontWeight="semibold">{book.publishedAt}</Text></Box>
@@ -31,12 +32,7 @@ const BookDetailContent = ({ book, signedIn, purchased, userId, isAdmin }: BookD
       </SimpleGrid>
     </Box>
   </Grid>
-  <SimpleGrid columns={{ base: 1, md: 2 }} gap="5" mt="10">
-    <CatalogProfile label="Author" profile={book.authorDetails} />
-    <CatalogProfile label="Publisher" profile={book.publisherDetails} />
-  </SimpleGrid>
-  <BookReviews slug={book.slug} userId={userId} isAdmin={isAdmin} purchased={purchased} averageRating={book.averageRating} />
-  {isAdmin && <AdminBookForm initialBook={book} />}
+  <BookTabs book={book} signedIn={signedIn} purchased={purchased} userId={userId} isAdmin={isAdmin} />
 </Container>;
 
 export default BookDetailContent;

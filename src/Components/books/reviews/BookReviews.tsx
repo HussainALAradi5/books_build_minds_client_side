@@ -11,7 +11,7 @@ import type { BookReviewsProps } from "@/props/books/reviews/BookReviewsProps";
 const BookReviews = (props: BookReviewsProps) => {
   const { userId, purchased } = props;
   const state = useBookReviews(props);
-  return <Box as="section" id="reviews" mt="12" pt="10" borderTopWidth="1px">
+  return <Box as="section" id="reviews">
     <Flex justify="space-between" align="end" gap="4" mb="3"><Heading as="h2" fontFamily="heading" fontSize={{ base: "3xl", md: "4xl" }}>Reader reviews</Heading><Text color="fg.muted">{state.pagination.total} reviews</Text></Flex>
     <Text color="fg.muted" mb="6">Average rating: <Text as="strong" color="fg">{state.average.toFixed(1)} / 5</Text></Text>
     {state.items.length > 0 ? <SimpleGrid columns={{ base: 1, md: 2 }} gap="5">{state.items.map((item) =>
