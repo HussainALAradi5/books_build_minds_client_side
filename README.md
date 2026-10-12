@@ -1,18 +1,24 @@
 # Books Builds Minds — client repository
 
-This is the **client** repository for Books Builds Minds. The matching [server repository](../server/README.md) provides the catalog, authentication, permissions, uploads, workflows, and demo data. The [documentation repository](../documentation/README.md) describes each service and endpoint. These links work when the three repositories are cloned as sibling folders.
+This is the **client** repository for Books Builds Minds. The matching [server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) provides the catalog, authentication, permissions, uploads, workflows, and demo data. The [documentation repository](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md) describes each service and endpoint. The related repository links point to the published GitHub repositories.
 
 ## Related repositories
 
-| Repository | Local link | What it contains |
+| Repository | GitHub link | What it contains |
 | --- | --- | --- |
 | Client | This repository | Next.js pages, Chakra UI components, hooks, typed API services, and screenshots |
-| Server | [Open server repository](../server/README.md) | Flask API, business rules, PostgreSQL models, migrations, and demo seeding |
-| Documentation | [Open documentation repository](../documentation/README.md) | Setup guides and feature-by-feature service and endpoint references |
+| Server | [Open server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) | Flask API, business rules, PostgreSQL models, migrations, and demo seeding |
+| Documentation | [Open documentation repository](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md) | Setup guides and feature-by-feature service and endpoint references |
 
-The three folders are independent Git repositories. Their local links require a sibling checkout; GitHub URLs can be added after those repositories are created.
+The related repository links point to the published GitHub repositories.
 
 ## Preview
+
+The latest [Chakra UI tabs and workflow guides](docs/screenshots/tabs/README.md) organize profile, administration, access management, and book detail sections.
+
+![Tabbed profile](docs/screenshots/tabs/profile-desktop.png)
+
+Read the [security controls and deployment requirements](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/security/README.md) before exposing a live service.
 
 ![Books Builds Minds home page in desktop light mode](docs/screenshots/home-desktop-light.png)
 
@@ -26,7 +32,7 @@ The [workflow screenshots](docs/screenshots/workflows/README.md) show registrati
 
 Node.js 20.9+ is required.
 
-1. Follow the [server setup](../server/README.md) to run Flask and seed the test accounts.
+1. Follow the [server setup](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) to run Flask and seed the test accounts.
 2. Install client dependencies and create local configuration:
 
    ```powershell
@@ -75,4 +81,4 @@ npm run lint
 npm run build
 ```
 
-See the [screenshot index](docs/screenshots/README.md) and the [feature documentation](../documentation/README.md). The repositories have no GitHub remote configured yet; add each remote after creating the corresponding GitHub repository.
+See the [screenshot index](docs/screenshots/README.md) and the [feature documentation](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md). The repositories have no GitHub remote configured yet; add each remote after creating the corresponding GitHub repository.

@@ -1,6 +1,6 @@
 # Test the library workflows
 
-These images show the running client using the Flask API. To reproduce them, run the [server](../../../../server/README.md), start the [client](../../../README.md), and seed the documented local accounts with `seed-demo --test-accounts`. The screenshots use **Sapiens**; choose another unpurchased book if that account has already completed a step.
+These images show the running client using the Flask API. To reproduce them, run the [server](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md), start the [client](../../../README.md), and seed the documented local accounts with `seed-demo --test-accounts`. The screenshots use **Sapiens**; choose another unpurchased book if that account has already completed a step.
 
 ## 1. Join or sign in
 

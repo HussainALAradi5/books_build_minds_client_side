@@ -2,6 +2,8 @@
 
 These screenshots come from the running Next.js client backed by the local Flask API. Desktop images use a 1440px viewport; mobile images use a 390px viewport.
 
+The [latest tabs and guides gallery](tabs/README.md) contains twelve refreshed light/dark screenshots captured on 2026-10-12.
+
 The [illustrated workflow](workflows/README.md) shows what a visitor, client, employee, and administrator can do, with screenshots after borrowing, purchasing, and posting a review.
 
 | Page | Light | Dark |
