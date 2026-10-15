@@ -1,11 +1,15 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 import { animationKeyframes } from "@/constants/ui/animations/animationKeyframes";
+import { semanticColors } from "./theme/semanticColors";
+import { greenPalette } from "./theme/greenPalette";
 
 const config = defineConfig({
   theme: {
     keyframes: animationKeyframes,
+    semanticTokens: { colors: semanticColors },
     tokens: {
       colors: {
+        green: greenPalette,
         brand: {
           50: { value: "#e8f0e8" },
           100: { value: "#d4e5d6" },

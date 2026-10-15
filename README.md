@@ -30,7 +30,7 @@ The [workflow screenshots](docs/screenshots/workflows/README.md) show registrati
 
 ## Run locally
 
-Node.js 20.9+ is required.
+Use Node.js 24 for this project (pinned in `.nvmrc` and `package.json`). The client build and type checks are verified on Node 24. On this Windows environment, Node 25.2.1 produced `EPERM` errors writing build output. Select Node 24 in your terminal before running npm commands.
 
 1. Follow the [server setup](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) to run Flask and seed the test accounts.
 2. Install client dependencies and create local configuration:

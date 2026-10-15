@@ -1,5 +1,6 @@
 "use client";
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
+import GenericCard from "@/Components/custom/display/GenericCard";
 import CustomButton from "@/Components/custom/CustomButton";
 import GenericConfirmButton from "@/Components/custom/actions/GenericConfirmButton";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
@@ -11,7 +12,7 @@ import type { TransactionCardProps } from "@/props/payments/TransactionCardProps
 const TransactionCard = (props: TransactionCardProps) => {
   const { item } = props;
   const state = useTransactionActions(props);
-  return <Box borderWidth="1px" borderRadius="lg" p="5">
+  return <GenericCard>
     <HStack justify="space-between" wrap="wrap"><Text fontWeight="bold">{item.bookTitle}</Text>
       <GenericStatusBadge value={item.status} labels={transactionStatusLabels} colors={transactionStatusColors} /></HStack>
     <Text mt="2">{item.kind} · {formatMoney(item.amountMinor, item.currency, item.currencyScale)}</Text>
@@ -25,6 +26,6 @@ const TransactionCard = (props: TransactionCardProps) => {
       {item.receiptId && <CustomButton appearance="secondary" onClick={state.receipt}>Download receipt</CustomButton>}
     </HStack>
     {state.error && <Text color="red.500" role="alert" mt="3">{state.error}</Text>}
-  </Box>;
+  </GenericCard>;
 };
 export default TransactionCard;

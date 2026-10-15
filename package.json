@@ -7,7 +7,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.37.0",
@@ -29,5 +29,8 @@
     "globals": "^16.5.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.71.1"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
