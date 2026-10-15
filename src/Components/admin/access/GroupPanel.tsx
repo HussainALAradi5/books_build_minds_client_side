@@ -2,6 +2,7 @@
 
 import { Box, Field, Heading, HStack, Input, NativeSelect, Stack, Text, Textarea } from "@chakra-ui/react";
 import AccessCheckboxList from "@/Components/custom/AccessCheckboxList";
+import GenericConfirmButton from "@/Components/custom/actions/GenericConfirmButton";
 import CustomButton from "@/Components/custom/CustomButton";
 import GenericPagination from "@/Components/custom/GenericPagination";
 import { useAccessAdminContext } from "@/hooks/admin/access/useAccessAdminContext";
@@ -23,7 +24,7 @@ const GroupPanel = () => {
       <Field.Root required><Field.Label>Name</Field.Label><Input value={name} onChange={(event) => setName(event.target.value)} required /></Field.Root>
       <Field.Root><Field.Label>Description</Field.Label><Textarea value={description} onChange={(event) => setDescription(event.target.value)} /></Field.Root>
       <AccessCheckboxList label="Roles in this group" items={options} selected={roleKeys} onToggle={toggle} />
-      <HStack wrap="wrap"><CustomButton type="submit" loading={busy}>Save group</CustomButton>{selected && <CustomButton appearance="secondary" onClick={clear}>New</CustomButton>}{selected && <CustomButton appearance="ghost" loading={busy} onClick={remove}>Delete</CustomButton>}</HStack>
+      <HStack wrap="wrap"><CustomButton type="submit" loading={busy}>Save group</CustomButton>{selected && <CustomButton appearance="secondary" onClick={clear}>New</CustomButton>}{selected && <GenericConfirmButton title="Delete group?" description="This record will be soft deleted. Check its assignments before confirming." confirmLabel="Delete" appearance="ghost" disabled={busy} onConfirm={remove}>Delete</GenericConfirmButton>}</HStack>
     </Stack></form>
     {message && <Text mt="3" color="green.600" role="status">{message}</Text>}{error && <Text mt="3" color="red.500" role="alert">{error}</Text>}
   </Box>;

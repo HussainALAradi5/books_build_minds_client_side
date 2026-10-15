@@ -74,7 +74,7 @@ export const useBookReviews = ({ slug, userId, isAdmin, purchased, averageRating
     if (deleteId === null) return;
     setBusy(true);
     try { await reviewService.remove(slug, deleteId); setDeleteId(null); clearForm(); await load(pagination.page); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete review."); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete review."); throw cause; }
     finally { setBusy(false); }
   };
   const canManage = (item: Review) => Boolean(userId && (item.userId === userId || isAdmin));

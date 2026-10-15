@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import TransactionReturn from "@/Components/payments/TransactionReturn";
 import BookPrintActions from "./printing/BookPrintActions";
 import Link from "next/link";
 import { Box, Container, Grid, Heading, Link as ChakraLink, SimpleGrid, Text } from "@chakra-ui/react";
@@ -22,6 +24,7 @@ const BookDetailContent = ({ book, signedIn, purchased, userId, isAdmin }: BookD
       <Text borderBottomWidth="1px" py="5"><Text as="span" color="orange.500">★</Text> {book.averageRating.toFixed(1)} <Text as="span" color="fg.muted">reader rating</Text></Text>
       <Text fontFamily="heading" fontSize="3xl" fontWeight="semibold" mt="5">{book.price.toFixed(2)} <Text as="span" fontFamily="body" fontSize="sm">BHD</Text></Text>
       <Text color="fg.muted" lineHeight="tall" maxW="lg" mt="4">A book worth making room for on your shelf. Discover new perspectives, memorable stories, and the joy of reading.</Text>
+      {signedIn && <Suspense><TransactionReturn /></Suspense>}
       <BookPrintActions key={book.slug} slug={book.slug} />
       <LoanActions book={book} signedIn={signedIn} />
       <PurchaseActions slug={book.slug} signedIn={signedIn} purchased={purchased} />

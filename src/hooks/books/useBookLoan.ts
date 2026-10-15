@@ -1,7 +1,7 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useBook } from "./useBook";
+import { useBookEvents } from "./useBookEvents";
 import type { LoanActionsProps } from "@/props/books/LoanActionsProps";
 import type { Loan } from "@/interfaces/library/Loan";
 import { loans } from "@/services/loans";
@@ -9,26 +9,15 @@ import { loans } from "@/services/loans";
 export const useBookLoan = ({ book: initialBook, signedIn }: LoanActionsProps) => {
   const { book, refresh, error: bookError } = useBook(initialBook);
   const [loan, setLoan] = useState<Loan | null>(null);
-  const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    if (!signedIn) return;
-    let live = true;
-    loans.current(book.slug).then((result) => { if (live) setLoan(result.loan); }).catch(() => {});
-    return () => { live = false; };
-  }, [book.slug, signedIn]);
-
-  const change = async (action: "borrow" | "rent" | "return") => {
-    setBusy(true); setMessage("");
-    try {
-      const result = action === "borrow" ? await loans.borrow(book.slug) : action === "rent" ? await loans.rent(book.slug) : await loans.return(book.slug);
-      setLoan(action === "return" ? null : result.loan);
-      await refresh();
-      setMessage(result.message);
-    } catch (cause) { setMessage(cause instanceof Error ? cause.message : "Could not update loan."); }
-    finally { setBusy(false); }
-  };
-
-  return { book, loan, busy, message, bookError, change };
+  const reload = useCallback(async () => {
+    await refresh();
+    if (signedIn) setLoan((await loans.current(initialBook.slug)).loan);
+  }, [refresh, signedIn, initialBook.slug]);
+  const onEvent = useCallback(() => { void reload().catch(() => setMessage("Could not refresh the loan. Try again.")); }, [reload]);
+  useBookEvents(initialBook.slug, onEvent);
+  useEffect(() => { const timer = setTimeout(onEvent, 0); return () => clearTimeout(timer); }, [onEvent]);
+  const returnBook = async () => { await loans.return(book.slug); await reload(); setMessage("Book returned."); };
+  const borrowed = async () => { await reload(); setMessage("Book borrowed successfully."); };
+  return { book, loan, message, bookError, returnBook, borrowed };
 };

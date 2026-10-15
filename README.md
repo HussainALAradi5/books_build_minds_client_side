@@ -86,3 +86,15 @@ See the [screenshot index](docs/screenshots/README.md) and the [feature document
 ## Print a book record
 
 On a book page, choose **Download book PDF** or **Show QR and barcode**. The server generates both codes and the printable document. Use a keyboard-mode scanner in catalog search to find the printed inventory identifier. See [printing setup](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/features/books/printing/README.md).
+
+## Guided borrowing and BHD sandbox payments
+
+Borrowing now requires a server quote, accepted library terms and final confirmation. Purchases and rentals use Tap's BHD sandbox with persisted transactions and immutable PDF receipts. Delete/bulk changes use confirmation dialogs; failed changes remain visible for retry.
+
+See [payment setup, services, endpoint contracts and release limits](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/features/payments/README.md). Configure `TAP_SECRET_KEY` and the public HTTPS `TAP_WEBHOOK_URL` on the server. Live keys are rejected. Real sandbox verification still requires your own provider account and webhook. No secrets belong in the client repository.
+
+### New workflow screenshots
+
+![Borrowing confirmation](docs/screenshots/payments/borrow-confirm-desktop.png)
+
+[Mobile, dark-mode, return and transaction screenshots](docs/screenshots/payments/README.md)

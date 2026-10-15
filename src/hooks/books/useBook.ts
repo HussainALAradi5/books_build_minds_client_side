@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { Book } from "@/interfaces/books/Book";
 import { bookService } from "@/services/bookService";
 
@@ -9,12 +9,12 @@ export const useBook = (initialBook: Book) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     setLoading(true); setError("");
     try { setBook(await bookService.get(initialBook.slug)); }
     catch (cause) { setError(cause instanceof Error ? cause.message : "Could not refresh book."); }
     finally { setLoading(false); }
-  };
+  }, [initialBook.slug]);
 
   return { book, loading, error, refresh };
 };

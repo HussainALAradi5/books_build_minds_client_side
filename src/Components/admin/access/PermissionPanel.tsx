@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Field, Heading, HStack, Input, NativeSelect, Stack, Text, Textarea } from "@chakra-ui/react";
+import GenericConfirmButton from "@/Components/custom/actions/GenericConfirmButton";
 import CustomButton from "@/Components/custom/CustomButton";
 import GenericPagination from "@/Components/custom/GenericPagination";
 import { useAccessAdminContext } from "@/hooks/admin/access/useAccessAdminContext";
@@ -21,7 +22,7 @@ const PermissionPanel = () => {
       <Field.Root required><Field.Label>Key</Field.Label><Input value={key} onChange={(event) => setKey(event.target.value)} disabled={Boolean(selected)} placeholder="resource:action.scope" required /></Field.Root>
       <Field.Root required><Field.Label>Label</Field.Label><Input value={label} onChange={(event) => setLabel(event.target.value)} required /></Field.Root>
       <Field.Root><Field.Label>Description</Field.Label><Textarea value={description} onChange={(event) => setDescription(event.target.value)} /></Field.Root>
-      <HStack wrap="wrap"><CustomButton type="submit" loading={busy}>Save permission</CustomButton>{selected && <CustomButton appearance="secondary" onClick={clear}>New</CustomButton>}{selected && !selected.isSystem && <CustomButton appearance="ghost" loading={busy} onClick={remove}>Delete</CustomButton>}</HStack>
+      <HStack wrap="wrap"><CustomButton type="submit" loading={busy}>Save permission</CustomButton>{selected && <CustomButton appearance="secondary" onClick={clear}>New</CustomButton>}{selected && !selected.isSystem && <GenericConfirmButton title="Delete permission?" description="This record will be soft deleted. Check its assignments before confirming." confirmLabel="Delete" appearance="ghost" disabled={busy} onConfirm={remove}>Delete</GenericConfirmButton>}</HStack>
     </Stack></form>
     {message && <Text mt="3" color="green.600" role="status">{message}</Text>}{error && <Text mt="3" color="red.500" role="alert">{error}</Text>}
   </Box>;

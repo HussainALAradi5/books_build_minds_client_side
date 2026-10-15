@@ -21,7 +21,7 @@ export const useLoansPanel = (userId: number) => {
   useEffect(() => { queueMicrotask(() => void load()); }, [load]);
   const returnBook = async (slug: string) => {
     try { await loans.return(slug); await load(); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not return book."); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not return book."); throw cause; }
   };
   const changeStatus = (next: LoanStatus | "all") => { setStatus(next); setPage(1); };
   return { page, setPage, status, changeStatus, result, error, loading, returnBook };

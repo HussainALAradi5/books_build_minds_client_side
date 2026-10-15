@@ -30,6 +30,13 @@ export const register = async (userName: string, email: string, password: string
 
 export const logout = async (): Promise<BackendResult> => {
   const jar = await cookies();
+  const token = jar.get(TOKEN_COOKIE)?.value;
+  if (token) {
+    try {
+      const response = await fetch(backendUrl("/logout"), { method: "POST", headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+      if (!response.ok && response.status !== 401) return { ok: false, status: response.status, data: { error: "Sign out failed. Please retry." } };
+    } catch { return { ok: false, status: 503, data: { error: "Server unavailable. Please retry sign out." } }; }
+  }
   jar.delete(TOKEN_COOKIE);
   jar.delete(USER_COOKIE);
   return { ok: true, status: 200, data: { message: "Logged out" } };

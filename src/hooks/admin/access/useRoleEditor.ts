@@ -34,7 +34,7 @@ export const useRoleEditor = () => {
     if (!selected || selected.isSystem) return;
     setBusy(true); setError("");
     try { await accessService.deleteRole(selected.key); await refresh(); clear(); setMessage("Role deleted."); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete role."); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete role."); throw cause; }
     finally { setBusy(false); }
   };
   return { selected, key, setKey, name, setName, description, setDescription, permissionKeys, toggle, busy, error, message, choose, clear, submit, remove };

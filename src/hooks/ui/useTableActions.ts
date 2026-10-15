@@ -27,10 +27,10 @@ export const useTableActions = (actions?: TableActions) => {
     if (file) void perform(() => actions?.onImport?.(file) ?? Promise.resolve());
     event.target.value = "";
   };
-  const bulk = () => perform(async () => {
+  const bulk = async () => {
     if (!bulkAction || !selected.length || !actions?.onBulk) return;
     await actions.onBulk(selected, bulkAction);
     setSelected([]);
-  });
+  };
   return { selected, toggle, toggleAll, format, setFormat, bulkAction, setBulkAction, busy, error, fileInput, exportRows, importRows, bulk };
 };

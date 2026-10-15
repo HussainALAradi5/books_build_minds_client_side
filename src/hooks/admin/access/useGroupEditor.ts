@@ -33,7 +33,7 @@ export const useGroupEditor = () => {
     if (!selected) return;
     setBusy(true); setError("");
     try { await accessService.deleteGroup(selected.groupId); await refresh(); clear(); setMessage("Group deleted."); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete group."); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete group."); throw cause; }
     finally { setBusy(false); }
   };
   return { selected, name, setName, description, setDescription, roleKeys, toggle, busy, error, message, choose, clear, submit, remove };

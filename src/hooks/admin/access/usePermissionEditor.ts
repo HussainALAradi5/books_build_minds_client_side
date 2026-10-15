@@ -31,7 +31,7 @@ export const usePermissionEditor = () => {
     if (!selected || selected.isSystem) return;
     setBusy(true); setError("");
     try { await accessService.deletePermission(selected.key); await refresh(); clear(); setMessage("Permission deleted."); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete permission."); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete permission."); throw cause; }
     finally { setBusy(false); }
   };
   return { selected, key, setKey, label, setLabel, description, setDescription, busy, error, message, choose, clear, submit, remove };
