@@ -4,4 +4,5 @@ export interface GenericTabsProps {
   items: readonly TabItem[];
   label: string;
   defaultValue?: string;
+  appearance?: "line" | "segmented";
 }

@@ -8,6 +8,8 @@ export const useAuthForm = (mode: "login" | "register") => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => setPasswordVisible((visible) => !visible);
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); setError(""); setBusy(true);
@@ -20,5 +22,5 @@ export const useAuthForm = (mode: "login" | "register") => {
     finally { setBusy(false); }
   };
 
-  return { error, busy, submit };
+  return { error, busy, passwordVisible, togglePasswordVisibility, submit };
 };
