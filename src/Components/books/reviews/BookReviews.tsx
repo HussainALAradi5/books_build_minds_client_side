@@ -7,6 +7,7 @@ import GenericPagination from "@/Components/custom/GenericPagination";
 import GenericStarRating from "@/Components/custom/ratings/GenericStarRating";
 import { useBookReviews } from "@/hooks/books/reviews/useBookReviews";
 import type { BookReviewsProps } from "@/props/books/reviews/BookReviewsProps";
+import ReviewCard from "./ReviewCard";
 
 const BookReviews = (props: BookReviewsProps) => {
   const { userId, purchased } = props;
@@ -15,13 +16,8 @@ const BookReviews = (props: BookReviewsProps) => {
     <Flex justify="space-between" align="end" gap="4" mb="3"><Heading as="h2" fontFamily="heading" fontSize={{ base: "3xl", md: "4xl" }}>Reader reviews</Heading><Text color="fg.muted">{state.pagination.total} reviews</Text></Flex>
     <Text color="fg.muted" mb="6">Average rating: <Text as="strong" color="fg">{state.average.toFixed(1)} / 5</Text></Text>
     {state.items.length > 0 ? <SimpleGrid columns={{ base: 1, md: 2 }} gap="5">{state.items.map((item) =>
-      <Box as="article" key={item.reviewId} bg="bg.panel" borderWidth="1px" borderRadius="lg" p="5">
-        <Flex justify="space-between" gap="4"><Text fontWeight="bold">{item.userName}</Text><Text fontSize="xs" color="fg.muted">{new Date(item.createdAt).toLocaleDateString()}</Text></Flex>
-        <Text color="orange.500" mt="2" aria-label={`${item.rating} out of 5 stars`}>★ {item.rating.toFixed(1)} / 5</Text>
-        <Text my="3" whiteSpace="pre-wrap">{item.comment}</Text>
-        {item.description && <Text color="fg.muted" whiteSpace="pre-wrap">{item.description}</Text>}
-        {state.canManage(item) && <HStack mt="4"><CustomButton appearance="ghost" onClick={() => state.startEdit(item)}>Edit</CustomButton><CustomButton appearance="ghost" onClick={() => state.setDeleteId(item.reviewId)}>Delete</CustomButton></HStack>}
-      </Box>)}</SimpleGrid> : <Text bg="bg.subtle" p="7">No reviews yet.</Text>}
+      <ReviewCard key={item.reviewId} review={item} canManage={state.canManage(item)}
+        onEdit={state.startEdit} onDelete={state.setDeleteId} />)}</SimpleGrid> : <Text bg="bg.subtle" p="7">No reviews yet.</Text>}
     <GenericPagination pagination={state.pagination} onPageChange={(page) => void state.load(page)} loading={state.busy} />
     {state.ownReview && !state.showForm && <CustomButton appearance="secondary" onClick={() => state.startEdit(state.ownReview!)}>Edit your review</CustomButton>}
     {state.showForm && <Box mt="8" maxW="xl"><Heading as="h3" fontSize="xl" mb="4">{state.editingId === null ? "Write a review" : "Edit review"}</Heading>

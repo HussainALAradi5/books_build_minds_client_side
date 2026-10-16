@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "./useSession";
 import { auth } from "@/services/auth";
+import { hasPermission } from "@/lib/access";
+import { Permission } from "@/enums/accounts/Permission";
+import { AccountRole } from "@/enums/accounts/AccountRole";
 
 export const useHeaderSession = () => {
   const { user, setUser } = useSession();
@@ -18,5 +21,6 @@ export const useHeaderSession = () => {
     finally { setBusy(false); }
   };
 
-  return { user, busy, error, logout };
+  return { user, busy, error, logout,
+    canManage: Boolean(user && user.role === AccountRole.Admin && hasPermission(user, Permission.BookReadAny)) };
 };

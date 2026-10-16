@@ -41,7 +41,9 @@
     ".next-verify-ui2/types/**/*.ts",
     ".next-verify-ui2/dev/types/**/*.ts",
     ".next-verify-enums/types/**/*.ts",
-    ".next-verify-enums/dev/types/**/*.ts"
+    ".next-verify-enums/dev/types/**/*.ts",
+    ".next-verify-final/types/**/*.ts",
+    ".next-verify-final/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

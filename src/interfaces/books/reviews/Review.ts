@@ -3,6 +3,7 @@ export interface Review extends BaseEntity {
   reviewId: number;
   userId: number;
   userName: string;
+  profilePictureUrl: string | null;
   bookId: number;
   comment: string;
   description: string;
