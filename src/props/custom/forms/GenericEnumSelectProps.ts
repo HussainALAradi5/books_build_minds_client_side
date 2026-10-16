@@ -6,4 +6,5 @@ export interface GenericEnumSelectProps<T extends string> {
   colors: GenericStatusBadgeProps<T>["colors"];
   onChange: (value: T | "") => void;
   allLabel?: string;
+  includeAll?: boolean;
 }

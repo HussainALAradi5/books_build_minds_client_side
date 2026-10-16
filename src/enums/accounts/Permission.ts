@@ -30,3 +30,20 @@ export enum Permission {
   AccessReadAny = "access:read.any",
   AccessEditAny = "access:edit.any",
 }
+
+export const permissionLabels = Object.fromEntries(
+  Object.values(Permission).map((permission) => [
+    permission,
+    permission.replace(/[:.-]/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase()),
+  ]),
+) as Record<Permission, string>;
+
+export const permissionColors = Object.fromEntries(
+  Object.values(Permission).map((permission) => [
+    permission,
+    permission.includes(":delete.") ? "red" :
+      permission.includes(":edit.") ? "orange" :
+      permission.includes(":write.") ? "green" :
+      permission.includes(":read.") ? "blue" : "purple",
+  ]),
+) as Record<Permission, "red" | "orange" | "green" | "blue" | "purple">;

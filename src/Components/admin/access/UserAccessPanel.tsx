@@ -4,8 +4,8 @@ import { Box, Field, Heading, NativeSelect, Stack, Text } from "@chakra-ui/react
 import AccessCheckboxList from "@/Components/custom/AccessCheckboxList";
 import CustomButton from "@/Components/custom/CustomButton";
 import GenericPagination from "@/Components/custom/GenericPagination";
-import { AccountRole } from "@/enums/accounts/AccountRole";
-import { accountRoleLabels } from "@/constants/accounts/accountRoleLabels";
+import GenericEnumSelect from "@/Components/custom/forms/GenericEnumSelect";
+import { accountRoleColors, accountRoleLabels } from "@/enums/accounts/AccountRole";
 import { useAccessAdminContext } from "@/hooks/admin/access/useAccessAdminContext";
 import { useUserAccessEditor } from "@/hooks/admin/access/useUserAccessEditor";
 
@@ -20,10 +20,11 @@ const UserAccessPanel = () => {
     <Field.Root mb="4"><Field.Label>Choose user</Field.Label><NativeSelect.Root><NativeSelect.Field value={selected?.userId ?? ""} onChange={(event) => {
       const item = users?.items.find((entry) => String(entry.userId) === event.target.value);
       if (item) choose(item);
-    }}><option value="">Select an account</option>{users?.items.map((item) => <option key={item.userId} value={item.userId}>{item.userName} · {item.role}{item.isActive ? "" : " · inactive"}</option>)}</NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root>
+    }}><option value="">Select an account</option>{users?.items.map((item) => <option key={item.userId} value={item.userId}>{item.userName} · {accountRoleLabels[item.role]}{item.isActive ? "" : " · inactive"}</option>)}</NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root>
     {users && <GenericPagination pagination={users.pagination} onPageChange={(page) => { void loadUsers(page); }} />}
     {selected && <form onSubmit={submit}><Stack gap="4" mt="5">
-      <Field.Root><Field.Label>Base role</Field.Label><NativeSelect.Root><NativeSelect.Field value={role} onChange={(event) => setRole(event.target.value as AccountRole)}>{Object.values(AccountRole).map((value) => <option key={value} value={value}>{accountRoleLabels[value]}</option>)}</NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root>
+      <GenericEnumSelect label="Base role" includeAll={false} value={role} labels={accountRoleLabels}
+        colors={accountRoleColors} onChange={(value) => { if (value) setRole(value); }} />
       <AccessCheckboxList label="Extra roles" items={roleOptions} selected={accessRoleKeys} onToggle={toggleRole} />
       <AccessCheckboxList label="Groups" items={groupOptions} selected={groupIds} onToggle={toggleGroup} />
       <CustomButton type="submit" loading={busy}>Save user access</CustomButton>

@@ -5,6 +5,7 @@ import CustomButton from "@/Components/custom/CustomButton";
 import GenericConfirmButton from "@/Components/custom/actions/GenericConfirmButton";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
 import { TransactionStatus, transactionStatusColors, transactionStatusLabels } from "@/enums/payments/TransactionStatus";
+import { transactionKindColors, transactionKindLabels } from "@/enums/payments/TransactionKind";
 import { formatMoney } from "@/lib/payments/formatMoney";
 import { useTransactionActions } from "@/hooks/payments/useTransactionActions";
 import type { TransactionCardProps } from "@/props/payments/TransactionCardProps";
@@ -15,7 +16,8 @@ const TransactionCard = (props: TransactionCardProps) => {
   return <GenericCard>
     <HStack justify="space-between" wrap="wrap"><Text fontWeight="bold">{item.bookTitle}</Text>
       <GenericStatusBadge value={item.status} labels={transactionStatusLabels} colors={transactionStatusColors} /></HStack>
-    <Text mt="2">{item.kind} · {formatMoney(item.amountMinor, item.currency, item.currencyScale)}</Text>
+    <HStack mt="2" wrap="wrap"><GenericStatusBadge value={item.kind} labels={transactionKindLabels} colors={transactionKindColors} />
+      <Text>{formatMoney(item.amountMinor, item.currency, item.currencyScale)}</Text></HStack>
     <Text fontSize="xs" color="fg.muted" overflowWrap="anywhere">Transaction {item.transactionId}</Text>
     {item.status === TransactionStatus.Pending && <Text mt="3">Payment has not been confirmed. A redirect alone does not complete your order.</Text>}
     {item.failureReason && <Text mt="3">{item.failureReason}</Text>}

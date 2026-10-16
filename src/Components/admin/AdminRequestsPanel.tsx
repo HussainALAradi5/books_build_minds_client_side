@@ -5,11 +5,12 @@ import GenericFilter from "@/Components/custom/GenericFilter";
 import GenericPagination from "@/Components/custom/GenericPagination";
 import GenericTable from "@/Components/custom/GenericTable";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
+import GenericEnumSelect from "@/Components/custom/forms/GenericEnumSelect";
 import { AdminDecision, adminDecisionColors, adminDecisionLabels } from "@/enums/accounts/AdminDecision";
 import type { TableColumn } from "@/props/custom/tables/TableColumn";
 import type { AdminRequest } from "@/interfaces/accounts/AdminRequest";
 import { useAdminRequests } from "@/hooks/admin/useAdminRequests";
-import { Box, Field, Heading, HStack, NativeSelect, Text } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text } from "@chakra-ui/react";
 
 const AdminRequestsPanel = () => {
   const { status, setStatus, filters, result, loading, error, apply, clear, review } = useAdminRequests();
@@ -26,9 +27,9 @@ const AdminRequestsPanel = () => {
 
   return <Box as="section"><Heading as="h2" fontFamily="heading" fontSize="3xl" mb="5">Access requests</Heading>
     <GenericFilter onApply={() => apply({ page: 1, status })} onClear={clear} loading={loading}>
-      <Field.Root maxW="190px"><Field.Label>Status</Field.Label><NativeSelect.Root><NativeSelect.Field value={status} onChange={(event) => setStatus(event.target.value as typeof status)}>
-        <option value="pending">Pending</option><option value="all">All</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option>
-      </NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root>
+      <Box w={{ base: "full", sm: "190px" }}><GenericEnumSelect label="Request status" allLabel="All requests"
+        value={status === "all" ? "" : status} labels={adminDecisionLabels} colors={adminDecisionColors}
+        onChange={(value) => setStatus(value || "all")} /></Box>
     </GenericFilter>
     {error && <Text color="red.500" role="alert">{error}</Text>}
     <GenericTable rows={result.items} columns={columns} getKey={(item) => item.requestId} emptyMessage="No requests in this view." />

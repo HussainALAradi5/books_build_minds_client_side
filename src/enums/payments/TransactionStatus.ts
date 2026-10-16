@@ -11,6 +11,6 @@ export const transactionStatusLabels: Record<TransactionStatus, string> = {
   pending: "Awaiting payment", completed: "Completed", expired: "Expired", failed: "Failed",
   refund_pending: "Refund pending", refunded: "Refunded",
 };
-export const transactionStatusColors: Record<TransactionStatus, string> = {
+export const transactionStatusColors: Record<TransactionStatus, "orange" | "green" | "gray" | "red" | "purple" | "blue"> = {
   pending: "orange", completed: "green", expired: "gray", failed: "red", refund_pending: "purple", refunded: "blue",
 };

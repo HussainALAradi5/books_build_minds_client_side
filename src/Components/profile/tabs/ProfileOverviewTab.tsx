@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { Box, Button, Flex, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
-import { accountRoleColors } from "@/constants/accounts/accountRoleColors";
-import { accountRoleLabels } from "@/constants/accounts/accountRoleLabels";
+import { accountRoleColors, accountRoleLabels } from "@/enums/accounts/AccountRole";
 import { useProfileOverview } from "@/hooks/profile/useProfileOverview";
 import type { ProfileContentProps } from "@/props/profile/ProfileContentProps";
 

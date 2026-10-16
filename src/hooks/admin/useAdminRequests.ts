@@ -5,12 +5,13 @@ import type { AdminRequest } from "@/interfaces/accounts/AdminRequest";
 import type { AdminRequestFilters } from "@/interfaces/accounts/AdminRequestFilters";
 import type { Page } from "@/interfaces/shared/Page";
 import { accounts } from "@/services/accounts";
+import { AdminDecision } from "@/enums/accounts/AdminDecision";
 
 const emptyPage: Page<AdminRequest> = { items: [], pagination: { page: 1, perPage: 10, total: 0, pages: 0, hasNext: false, hasPrevious: false } };
 
 export const useAdminRequests = () => {
-  const [status, setStatus] = useState<NonNullable<AdminRequestFilters["status"]>>("pending");
-  const [filters, setFilters] = useState<AdminRequestFilters>({ page: 1, status: "pending" });
+  const [status, setStatus] = useState<NonNullable<AdminRequestFilters["status"]>>(AdminDecision.Pending);
+  const [filters, setFilters] = useState<AdminRequestFilters>({ page: 1, status: AdminDecision.Pending });
   const [result, setResult] = useState(emptyPage);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
