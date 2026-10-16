@@ -1,9 +1,12 @@
 import HomeContent from "@/Components/catalog/HomeContent";
-import { getBooks } from "@/lib/server-api";
+import CatalogUnavailable from "@/Components/catalog/CatalogUnavailable";
+import { getBooksOrUnavailable } from "@/lib/server-api";
+import { connection } from "next/server";
 
 const HomeView = async () => {
-  const page = await getBooks();
-  return <HomeContent page={page} />;
+  await connection();
+  const page = await getBooksOrUnavailable();
+  return page ? <HomeContent page={page} /> : <CatalogUnavailable />;
 };
 
 export default HomeView;

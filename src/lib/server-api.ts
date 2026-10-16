@@ -15,6 +15,18 @@ export const getBooks = async (): Promise<Page<BookSummary>> => {
   return fromBackend<Page<BookSummary>>(await response.json());
 };
 
+export const getBooksOrUnavailable = async (): Promise<Page<BookSummary> | undefined> => {
+  try { return await getBooks(); }
+  catch (error) {
+    if (error instanceof TypeError || error instanceof DOMException && error.name === "TimeoutError") {
+      console.warn("Catalog API unavailable. Start Flask or check BACKEND_URL.");
+    } else {
+      console.error("Catalog API returned an unexpected error", error);
+    }
+    return undefined;
+  }
+};
+
 export const getBook = async (slug: string): Promise<Book | undefined> => {
   const response = await fetch(backendUrl(`/book/${encodeURIComponent(slug)}`), { cache: "no-store", signal: AbortSignal.timeout(5000) });
   if (response.status === 404) return undefined;

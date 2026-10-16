@@ -28,11 +28,15 @@ Read the [security controls and deployment requirements](https://github.com/Huss
 
 The [catalog gallery](docs/screenshots/catalog/README.md) shows the responsive book cards, searchable publisher filter, condition badges, grid/list switch, and administrator table actions.
 
+The [footer gallery](docs/screenshots/footer/README.md) shows the updated desktop and mobile navigation footer.
+
 The [workflow screenshots](docs/screenshots/workflows/README.md) show registration, borrowing, purchase and receipt access, reviews, employee profile, and admin management.
 
 ## Run locally
 
 Use Node.js 24 for this project (pinned in `.nvmrc` and `package.json`). The client build and type checks are verified on Node 24. On this Windows environment, Node 25.2.1 produced `EPERM` errors writing build output. Select Node 24 in your terminal before running npm commands.
+
+Development and production builds use separate generated directories, so `npm run build` can run while the development server is open.
 
 1. Follow the [server setup](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) to run Flask and seed the test accounts.
 2. Install client dependencies and create local configuration:
@@ -44,6 +48,8 @@ Use Node.js 24 for this project (pinned in `.nvmrc` and `package.json`). The cli
 
 3. Set both `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` in `.env.local` to the Flask origin, normally `http://127.0.0.1:5000`. The first is used by server functions; the second loads media and connects Socket.IO in the browser.
 4. Start Next.js with `npm run dev`, then open `http://localhost:3000`.
+
+Start Flask before opening the client. Check `http://127.0.0.1:5000/api/?per_page=3` in your browser; it should return JSON. If Flask is stopped or `BACKEND_URL` points to another port, the home page shows a connection message and **Try again** instead of crashing. Restart the server and reload the page.
 
 The client has no separate demo catalog; `flask --app app seed-demo --test-accounts` populates server data. Never commit `.env.local`.
 

@@ -8,6 +8,8 @@ The [illustrated workflow](workflows/README.md) shows what a visitor, client, em
 
 The [catalog gallery](catalog/README.md) shows the searchable publisher filter, condition badges, responsive grid and list layouts, and the administrator's selected-row export and import controls.
 
+The [footer gallery](footer/README.md) shows the redesigned login-page footer at desktop and mobile widths.
+
 | Page | Light | Dark |
 | --- | --- | --- |
 | Home, desktop | [View](home-desktop-light.png) | [View](home-desktop-dark.png) |
