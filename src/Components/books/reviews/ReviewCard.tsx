@@ -5,7 +5,7 @@ import CustomButton from "@/Components/custom/CustomButton";
 import { mediaUrl } from "@/lib/mediaUrl";
 import type { ReviewCardProps } from "@/props/books/reviews/ReviewCardProps";
 
-const ReviewCard = ({ review, canManage, onEdit, onDelete }: ReviewCardProps) => <Box as="article"
+const ReviewCard = ({ review, canEdit, canDelete, editor, onEdit, onDelete }: ReviewCardProps) => <Box as="article"
   bg="bg.panel" borderWidth="1px" borderColor="border.subtle" borderRadius="2xl" p="5" boxShadow="xs">
   <Flex justify="space-between" align="start" gap="3" wrap="wrap">
     <HStack gap="3">
@@ -18,10 +18,14 @@ const ReviewCard = ({ review, canManage, onEdit, onDelete }: ReviewCardProps) =>
     </HStack>
     <Text color="orange.500" aria-label={`${review.rating} out of 5 stars`}>★ {review.rating.toFixed(1)} / 5</Text>
   </Flex>
-  <Text mt="4" whiteSpace="pre-wrap">{review.comment}</Text>
-  {review.description && <Text color="fg.muted" whiteSpace="pre-wrap" mt="2">{review.description}</Text>}
-  {canManage && <HStack mt="4"><CustomButton appearance="ghost" onClick={() => onEdit(review)}>Edit</CustomButton>
-    <CustomButton appearance="ghost" onClick={() => onDelete(review.reviewId)}>Delete</CustomButton></HStack>}
+  {editor ? <Box mt="4">{editor}</Box> : <>
+    <Text mt="4" whiteSpace="pre-wrap">{review.comment}</Text>
+    {review.description && <Text color="fg.muted" whiteSpace="pre-wrap" mt="2">{review.description}</Text>}
+    {(canEdit || canDelete) && <HStack mt="4">
+      {canEdit && <CustomButton appearance="ghost" onClick={() => onEdit(review)}>Edit</CustomButton>}
+      {canDelete && <CustomButton appearance="danger" size="sm" onClick={() => onDelete(review.reviewId)}>Delete</CustomButton>}
+    </HStack>}
+  </>}
 </Box>;
 
 export default ReviewCard;

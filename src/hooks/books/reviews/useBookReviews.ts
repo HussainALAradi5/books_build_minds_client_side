@@ -51,6 +51,7 @@ export const useBookReviews = ({ slug, userId, isAdmin, purchased, averageRating
 
   const clearForm = () => { setEditingId(null); setRating(0); setComment(""); setDescription(""); };
   const startEdit = (item: Review) => {
+    if (item.userId !== userId) return;
     setEditingId(item.reviewId);
     setRating(item.rating);
     setComment(item.comment);
@@ -58,7 +59,8 @@ export const useBookReviews = ({ slug, userId, isAdmin, purchased, averageRating
   };
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (rating < 1 || comment.trim().length < 10 || (editingId === null && (!purchased || ownReview))) return;
+    if (rating < 1 || comment.trim().length < 10 || (editingId === null && (!purchased || ownReview)) ||
+      (editingId !== null && ownReview?.reviewId !== editingId)) return;
     setBusy(true);
     try {
       const input = { rating, comment: comment.trim(), description: description.trim() };
@@ -77,8 +79,12 @@ export const useBookReviews = ({ slug, userId, isAdmin, purchased, averageRating
     catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete review."); throw cause; }
     finally { setBusy(false); }
   };
-  const canManage = (item: Review) => Boolean(userId && (item.userId === userId || isAdmin));
-  const showForm = editingId !== null || Boolean(userId && purchased && !ownReview);
+  const canEdit = (item: Review) => Boolean(userId && item.userId === userId);
+  const canDelete = (item: Review) => Boolean(userId && (item.userId === userId || isAdmin));
+  const canCreate = Boolean(userId && purchased && !ownReview);
+  const visibleItems = ownReview && !items.some((item) => item.reviewId === ownReview.reviewId)
+    ? [ownReview, ...items] : items;
   return { items, pagination, ownReview, average, rating, setRating, comment, setComment, description, setDescription,
-    editingId, deleteId, setDeleteId, busy, error, load, submit, startEdit, clearForm, removeSelected, canManage, showForm };
+    visibleItems, editingId, deleteId, setDeleteId, busy, error, load, submit, startEdit, clearForm,
+    removeSelected, canEdit, canDelete, canCreate };
 };
