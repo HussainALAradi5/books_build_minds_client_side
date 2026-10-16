@@ -4,7 +4,7 @@ import type { RootLayoutProps } from "@/props/layout/RootLayoutProps";
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return <html lang="en" suppressHydrationWarning><head><title>Books Build Minds</title><meta name="description" content="Find your next great read." /></head>
-    <body><UiProvider><AppChrome>{children}</AppChrome></UiProvider></body>
+    <body suppressHydrationWarning><UiProvider><AppChrome>{children}</AppChrome></UiProvider></body>
   </html>;
 };
 
