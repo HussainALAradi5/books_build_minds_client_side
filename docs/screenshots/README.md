@@ -6,6 +6,8 @@ The [latest tabs and guides gallery](tabs/README.md) contains twelve refreshed l
 
 The [illustrated workflow](workflows/README.md) shows what a visitor, client, employee, and administrator can do, with screenshots after borrowing, purchasing, and posting a review.
 
+The [catalog gallery](catalog/README.md) shows the searchable publisher filter, condition badges, responsive grid and list layouts, and the administrator's selected-row export and import controls.
+
 | Page | Light | Dark |
 | --- | --- | --- |
 | Home, desktop | [View](home-desktop-light.png) | [View](home-desktop-dark.png) |

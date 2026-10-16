@@ -1,5 +1,5 @@
 "use client";
-import { Badge, Box, Heading, HStack, SimpleGrid, Text, Flex } from "@chakra-ui/react";
+import { Badge, Box, Heading, HStack, Text, Flex } from "@chakra-ui/react";
 import BookCard from "./BookCard";
 import BookFilterFields from "./filters/BookFilterFields";
 import BookAdvancedFilters from "./filters/BookAdvancedFilters";
@@ -8,6 +8,9 @@ import GenericPagination from "@/Components/custom/GenericPagination";
 import CustomButton from "@/Components/custom/CustomButton";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
 import { bookStatusLabels, bookStatusColors } from "@/enums/books/BookStatus";
+import GenericTable from "@/Components/custom/GenericTable";
+import { bookColumns } from "@/constants/catalog/bookColumns";
+import { CollectionView } from "@/enums/shared/CollectionView";
 import { useBookCatalog } from "@/hooks/books/useBookCatalog";
 import type { BookBrowserProps } from "@/props/catalog/BookBrowserProps";
 
@@ -26,8 +29,10 @@ const BookBrowser = ({ initialPage }: BookBrowserProps) => {
     {state.error && <Text color="red.600" _dark={{ color: "red.300" }} role="alert" mt="4">{state.error}</Text>}
     <Text role="status" aria-live="polite" fontSize="sm" color="fg.muted" my="5">{state.loading ? "Updating collection…" : `${state.result.pagination.total} books found · Page ${state.result.pagination.page} of ${Math.max(1, state.result.pagination.pages)}`}</Text>
     <Box aria-busy={state.loading} opacity={state.loading ? 0.6 : 1}>
-      {state.result.items.length ? <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="6">{state.result.items.map((book) => <BookCard key={book.bookId} book={book} />)}</SimpleGrid> :
-        <Box bg="bg.subtle" borderRadius="2xl" p="10" textAlign="center"><Heading as="h3" size="md">No books found</Heading><Text color="fg.muted" my="3">Try a different publisher or a wider price range.</Text><CustomButton appearance="secondary" onClick={state.clear}>Reset filters</CustomButton></Box>}
+      <GenericTable rows={state.result.items} columns={bookColumns} getKey={(book) => book.bookId}
+        initialView={CollectionView.Grid} renderCard={(book) => <BookCard book={book} />} actions={state.actions}
+        emptyMessage="Try a different publisher or a wider price range." />
+      {!state.result.items.length && <Box textAlign="center" p="6"><Heading as="h3" size="md" mb="3">No books found</Heading><CustomButton appearance="secondary" onClick={state.clear}>Reset filters</CustomButton></Box>}
     </Box>
     <GenericPagination pagination={state.result.pagination} onPageChange={(page) => void state.pageChange(page)} loading={state.loading} />
   </Box>;

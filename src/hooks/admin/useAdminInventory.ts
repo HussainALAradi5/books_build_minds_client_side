@@ -31,8 +31,8 @@ export const useAdminInventory = () => {
   const apply = () => setFilters({ ...filters, page: 1, q: search.trim() || undefined });
   const clear = () => { setSearch(""); setFilters(initialFilters); };
   const pageChange = (page: number) => setFilters((previous) => ({ ...previous, page }));
-  const exportRows = async (format: "pdf" | "xlsx" | "csv") => {
-    const result = await bookService.export(filters, format);
+  const exportRows = async (format: "pdf" | "xlsx" | "csv", selected?: (string | number)[]) => {
+    const result = await bookService.export(filters, format, selected?.map(Number));
     const mimeType = format === "pdf" ? "application/pdf" : format === "csv" ? "text/csv" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     downloadBase64(result.base64, `library-books.${format}`, mimeType);
   };

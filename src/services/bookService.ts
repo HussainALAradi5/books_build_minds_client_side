@@ -25,7 +25,7 @@ export const bookService = {
   update: (slug: string, book: CreateBookInput) => api<BookResult>(`/books/${encodeURIComponent(slug)}`, { method: "PUT", body: JSON.stringify(book) }),
   remove: (slug: string) => api<{ message: string }>(`/books/${encodeURIComponent(slug)}`, { method: "DELETE" }),
   managed: (filters: BookFilters) => api<Page<BookSummary>>(`/books/manage${buildQuery(filters)}`),
-  export: (filters: BookFilters, format: "pdf" | "xlsx" | "csv") => api<{ base64: string }>(`/books/export${buildQuery({ ...filters, format })}`),
+  export: (filters: BookFilters, format: "pdf" | "xlsx" | "csv", ids?: number[]) => api<{ base64: string }>(`/books/export${buildQuery({ ...filters, format, ids: ids?.length ? ids.join(",") : undefined })}`),
   import: (file: File) => {
     const body = new FormData();
     body.append("file", file);

@@ -6,11 +6,13 @@ import type { BookFilterForm } from "@/interfaces/books/BookFilterForm";
 import type { BookFilters } from "@/interfaces/books/BookFilters";
 import type { BookSummary } from "@/interfaces/books/BookSummary";
 import type { Page } from "@/interfaces/shared/Page";
+import { useCatalogActions } from "./useCatalogActions";
 
 export const useBookCatalog = (initialPage: Page<BookSummary>) => {
   const [form, setForm] = useState<BookFilterForm>(emptyForm);
   const [validation, setValidation] = useState("");
   const { result, query, loading, error, run } = useBooks(initialPage);
+  const actions = useCatalogActions(query, () => run(query));
   const update = <K extends keyof BookFilterForm>(key: K, value: BookFilterForm[K]) =>
     setForm((previous) => ({ ...previous, [key]: value }));
   const apply = () => {
@@ -27,5 +29,5 @@ export const useBookCatalog = (initialPage: Page<BookSummary>) => {
   const activeFilters = [query.q && `Search: ${query.q}`, query.publisher && `Publisher: ${query.publisher}`,
     query.minPrice !== undefined && `From ${query.minPrice} BHD`,
     query.maxPrice !== undefined && `Up to ${query.maxPrice} BHD`].filter(Boolean) as string[];
-  return { form, update, result, loading, error: validation || error, apply, clear, pageChange, activeFilters, appliedCondition: query.condition };
+  return { form, update, result, loading, error: validation || error, apply, clear, pageChange, activeFilters, appliedCondition: query.condition, actions };
 };

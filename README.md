@@ -26,6 +26,8 @@ Read the [security controls and deployment requirements](https://github.com/Huss
 
 [View all desktop, mobile, light, and dark screenshots](docs/screenshots/README.md).
 
+The [catalog gallery](docs/screenshots/catalog/README.md) shows the responsive book cards, searchable publisher filter, condition badges, grid/list switch, and administrator table actions.
+
 The [workflow screenshots](docs/screenshots/workflows/README.md) show registration, borrowing, purchase and receipt access, reviews, employee profile, and admin management.
 
 ## Run locally
@@ -81,7 +83,7 @@ npm run lint
 npm run build
 ```
 
-See the [screenshot index](docs/screenshots/README.md) and the [feature documentation](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md). The repositories have no GitHub remote configured yet; add each remote after creating the corresponding GitHub repository.
+See the [screenshot index](docs/screenshots/README.md) and the [feature documentation](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md).
 
 ## Print a book record
 

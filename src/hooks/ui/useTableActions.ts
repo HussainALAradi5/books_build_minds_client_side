@@ -21,10 +21,10 @@ export const useTableActions = (actions?: TableActions) => {
     catch (cause) { setError(cause instanceof Error ? cause.message : "Table action failed."); }
     finally { setBusy(false); }
   };
-  const exportRows = () => perform(() => actions?.onExport?.(format) ?? Promise.resolve());
+  const exportRows = () => perform(() => actions?.onExport?.(format, selected) ?? Promise.resolve());
   const importRows = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) void perform(() => actions?.onImport?.(file) ?? Promise.resolve());
+    if (file) void perform(async () => { await actions?.onImport?.(file); setSelected([]); });
     event.target.value = "";
   };
   const bulk = async () => {
