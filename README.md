@@ -28,7 +28,9 @@ Read the [security controls and deployment requirements](https://github.com/Huss
 
 The [catalog gallery](docs/screenshots/catalog/README.md) shows the responsive book cards, searchable publisher filter, condition badges, grid/list switch, and administrator table actions.
 
-The book page uses a color-coded availability progress bar based on available and total copies. The reusable animated progress bar also marks each step of the library workflow and guide; a damaged condition remains a condition badge because it is not a percentage.
+The catalog list and book page show a copy-availability bar based on available and total copies. A separate, labeled wear scale uses the book's condition category (New, Good, Fair, or Damaged) without presenting it as a measured percentage. The reusable animated progress bar also marks each step of the library workflow and guide.
+
+On a book page, the right-side tabs contain **Book details** and a combined, read only **Author & publisher** view; reviews appear below. A reusable information card near the title shows publisher, publication date, ISBN, and condition. Administrators can change an existing book's price in a compact dialog. Other book fields and existing creator profiles are fixed after creation.
 
 The [footer gallery](docs/screenshots/footer/README.md) shows the updated desktop and mobile navigation footer.
 
@@ -63,7 +65,7 @@ After running `seed-demo --test-accounts` on the server, sign in at `/login`:
 
 | Role | Username | Password | Try this |
 | --- | --- | --- | --- |
-| Administrator | `demo_admin` | `LibraryAdmin2026!` | Open **Admin** to manage books, inventory, authors, publishers, roles, groups, and permissions. |
+| Administrator | `demo_admin` | `LibraryAdmin2026!` | Open **Admin** to add books and manage catalog records, roles, groups, and permissions; change an existing book's price from its detail page. |
 | Employee | `demo_employee` | `LibraryStaff2026!` | Browse books, borrow or rent, purchase, and manage your own profile. Admin pages remain restricted. |
 | Client | `demo_client` | `LibraryReader2026!` | Borrow or rent a book, return it, purchase a book, download its receipt, then write a review. |
 

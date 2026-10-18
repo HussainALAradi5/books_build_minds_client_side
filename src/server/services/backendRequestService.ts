@@ -9,7 +9,7 @@ import type { BackendResult } from "@/interfaces/shared/BackendResult";
 const publicGet = [/^\/book\/[a-zA-Z0-9_.-]+\/(?:print|codes)$/, /^\/$/, /^\/book\/(?!manage$|export$|import$|bulk$)[a-zA-Z0-9_.-]+$/, /^\/book\/[a-zA-Z0-9_.-]+\/review$/, /^\/media\/books\/\d+$/, /^\/(?:countries|authors|publishers)(?:\/\d+)?$/];
 const allowed = [
   /^\/transactions(?:\/(?:checkout|[a-f0-9-]{36})(?:\/(?:sync|cancel|receipt))?)?$/,
-  /^\/$/, /^\/book$/, /^\/book\/[a-zA-Z0-9_.-]+(?:\/(?:purchase|receipt|loan|borrow|rent|return|review|print|codes|quote))?$/,
+  /^\/$/, /^\/book$/, /^\/book\/[a-zA-Z0-9_.-]+(?:\/(?:purchase|receipt|loan|borrow|rent|return|review|print|codes|quote|price))?$/,
   /^\/book\/[a-zA-Z0-9_.-]+\/review\/(?:\d+|mine)$/, /^\/profile\/\d+(?:\/(?:edit|books|activities|loans))?$/,
   /^\/admin-requests(?:\/\d+)?$/, /^\/media\/books\/\d+$/, /^\/media\/profile-picture$/,
   /^\/countries(?:\/sync)?$/, /^\/authors(?:\/\d+)?$/, /^\/publishers(?:\/\d+)?$/,

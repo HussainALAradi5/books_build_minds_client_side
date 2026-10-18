@@ -7,4 +7,5 @@ export interface GenericProgressProps {
   tone: ProgressTone;
   valueLabel?: string;
   animated?: boolean;
+  compact?: boolean;
 }

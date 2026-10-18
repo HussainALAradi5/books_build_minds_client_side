@@ -7,6 +7,7 @@ Captured on 16 October 2026 from the Next.js client with an isolated, server-see
 | Reader grid, light | ![Book cards](desktop.png) |
 | Searchable publisher dropdown | ![Publisher search](publisher-dropdown.png) |
 | Reader list, light | ![Book list](list-desktop.png) |
+| Reader list with wear and availability bars | ![Condition and copy bars](catalog-list-condition-bars.png) |
 | Administrator list with row selection and import/export | ![Admin table actions](admin-list.png) |
 | Reader grid, dark | ![Dark catalog](desktop-dark.png) |
 | Mobile grid, light | ![Mobile catalog](mobile.png) |

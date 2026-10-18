@@ -54,7 +54,7 @@ Sign in as `demo_employee` with `LibraryStaff2026!`. Employees currently have me
 
 ## 4. Use an administrator account
 
-Sign in as `demo_admin` with `LibraryAdmin2026!`. Open **Admin** to add or edit books and catalog records, filter inventory, import/export rows, apply bulk archive or soft delete, and review access requests.
+Sign in as `demo_admin` with `LibraryAdmin2026!`. Open **Admin** to add books and catalog records, filter inventory, import/export rows, apply bulk archive or soft delete, and review access requests. On a book page, **Edit price** opens a compact price-only dialog. The **Author & publisher** tab displays read only creator profiles.
 
 ![Admin inventory and catalog management](09-admin-inventory.png)
 
@@ -77,3 +77,6 @@ These screenshots were captured from the production client build with the local 
 | Step-by-step guide | [Desktop](workflow-progress-desktop.png) |
 | Owner edits inside the review card | [Desktop](review-inline-edit-desktop.png) |
 | Administrator sees Delete but no Edit | [Desktop](review-admin-delete-desktop.png) |
+| Book information card near the title | ![Desktop book information](book-information-desktop.png) · ![Mobile book information](book-information-mobile.png) |
+| Author and publisher profiles in the upper tab | ![Read only creator profiles](book-creators-above-reviews.png) |
+| Compact administrator price dialog | ![Price dialog](book-edit-dialog.png) |

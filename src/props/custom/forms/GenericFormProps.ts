@@ -7,4 +7,5 @@ export interface GenericFormProps<T> {
   submitLabel: string;
   loading?: boolean;
   error?: string;
+  compact?: boolean;
 }

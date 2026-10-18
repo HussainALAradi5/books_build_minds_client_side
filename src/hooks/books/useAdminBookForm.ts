@@ -6,9 +6,8 @@ import type { CreateBookInput } from "@/interfaces/books/CreateBookInput";
 import { bookFormFields } from "@/features/admin/bookFormConfig";
 import { formDataToObject } from "@/lib/formDataToObject";
 import { bookService } from "@/services/bookService";
-import type { Book } from "@/interfaces/books/Book";
 
-export const useAdminBookForm = (initialBook?: Book) => {
+export const useAdminBookForm = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -19,9 +18,9 @@ export const useAdminBookForm = (initialBook?: Book) => {
     const form = event.currentTarget;
     const book = formDataToObject<CreateBookInput>(new FormData(form), bookFormFields);
     try {
-      const result = initialBook ? await bookService.update(initialBook.slug, book) : await bookService.create(book);
+      const result = await bookService.create(book);
       setCreatedBookId(result.book.bookId);
-      if (!initialBook) form.reset();
+      form.reset();
       router.refresh();
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not add book."); }
     finally { setBusy(false); }

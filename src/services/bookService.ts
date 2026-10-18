@@ -2,6 +2,7 @@ import { api } from "@/lib/apiClient";
 import { buildQuery } from "@/lib/query";
 import { publicApiGet } from "@/lib/publicApiClient";
 import type { CreateBookInput } from "@/interfaces/books/CreateBookInput";
+import type { UpdateBookPriceInput } from "@/interfaces/books/UpdateBookPriceInput";
 import type { Book } from "@/interfaces/books/Book";
 import type { BookFilters } from "@/interfaces/books/BookFilters";
 import type { BookResult } from "@/interfaces/books/BookResult";
@@ -23,7 +24,7 @@ export const bookService = {
   },
   get: (slug: string) => api<Book>(`/books/${encodeURIComponent(slug)}`),
   create: (book: CreateBookInput) => api<BookResult>("/books", { method: "POST", body: JSON.stringify(book) }),
-  update: (slug: string, book: CreateBookInput) => api<BookResult>(`/books/${encodeURIComponent(slug)}`, { method: "PUT", body: JSON.stringify(book) }),
+  updatePrice: (slug: string, input: UpdateBookPriceInput) => api<BookResult>(`/books/${encodeURIComponent(slug)}/price`, { method: "PATCH", body: JSON.stringify(input) }),
   remove: (slug: string) => api<{ message: string }>(`/books/${encodeURIComponent(slug)}`, { method: "DELETE" }),
   managed: (filters: BookFilters) => api<Page<BookSummary>>(`/books/manage${buildQuery(filters)}`),
   export: (filters: BookFilters, format: "pdf" | "xlsx" | "csv", ids?: number[]) => api<{ base64: string }>(`/books/export${buildQuery({ ...filters, format, ids: ids?.length ? ids.join(",") : undefined })}`),

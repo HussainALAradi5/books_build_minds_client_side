@@ -7,5 +7,4 @@ export const publishers = {
   all: (page = 1, query = "") => api<Page<Publisher>>(`/publishers?page=${page}&per_page=20&q=${encodeURIComponent(query)}`),
   one: (id: number) => api<Publisher>(`/publishers/${id}`),
   create: (data: { name: string; description: string; countryCode: string | null }) => api<ApiMessage & { publisher: Publisher }>("/publishers", { method: "POST", body: JSON.stringify(data) }),
-  update: (id: number, data: { name: string; description: string; countryCode: string | null }) => api<ApiMessage & { publisher: Publisher }>(`/publishers/${id}`, { method: "PUT", body: JSON.stringify(data) }),
 };
