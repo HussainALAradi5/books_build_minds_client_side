@@ -5,6 +5,7 @@ import CustomButton from "@/Components/custom/CustomButton";
 import GenericAnimation from "@/Components/custom/animation/GenericAnimation";
 import { useWorkflowGuide } from "@/hooks/ui/workflow/useWorkflowGuide";
 import type { GenericWorkflowGuideProps } from "@/props/custom/workflow/GenericWorkflowGuideProps";
+import GenericProgress from "@/Components/custom/feedback/GenericProgress";
 
 const GenericWorkflowGuide = ({ title, steps, triggerLabel = "Step-by-step guide" }: GenericWorkflowGuideProps) => {
   const guide = useWorkflowGuide(steps);
@@ -14,9 +15,10 @@ const GenericWorkflowGuide = ({ title, steps, triggerLabel = "Step-by-step guide
       <Dialog.Header><Dialog.Title>{title}</Dialog.Title></Dialog.Header>
       <Dialog.Body>
         <Dialog.Description mb="5">Follow these instructions in the library. This guide does not submit actions for you.</Dialog.Description>
+        {steps.length > 0 && <GenericProgress animated label="Guide progress" value={guide.currentIndex + 1} max={steps.length}
+          tone={guide.tone} valueLabel={`Step ${guide.currentIndex + 1} of ${steps.length}`} />}
         <GenericAnimation key={guide.step?.id} aria-live="polite" aria-atomic="true">
-          <Text fontSize="sm" color="fg.muted" mb="2">Step {guide.currentIndex + 1} of {steps.length}</Text>
-          <Heading as="h2" size="lg" mb="3">{guide.step?.title}</Heading>
+          <Heading as="h2" size="lg" mt="5" mb="3">{guide.step?.title}</Heading>
           <Text lineHeight="tall">{guide.step?.description}</Text>
         </GenericAnimation>
       </Dialog.Body>

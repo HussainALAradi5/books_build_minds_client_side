@@ -28,6 +28,8 @@ Read the [security controls and deployment requirements](https://github.com/Huss
 
 The [catalog gallery](docs/screenshots/catalog/README.md) shows the responsive book cards, searchable publisher filter, condition badges, grid/list switch, and administrator table actions.
 
+The book page uses a color-coded availability progress bar based on available and total copies. The reusable animated progress bar also marks each step of the library workflow and guide; a damaged condition remains a condition badge because it is not a percentage.
+
 The [footer gallery](docs/screenshots/footer/README.md) shows the updated desktop and mobile navigation footer.
 
 The [workflow screenshots](docs/screenshots/workflows/README.md) show registration, borrowing, purchase and receipt access, reviews, employee profile, and admin management.
@@ -52,6 +54,8 @@ Development and production builds use separate generated directories, so `npm ru
 Start Flask before opening the client. Check `http://127.0.0.1:5000/api/?per_page=3` in your browser; it should return JSON. If Flask is stopped or `BACKEND_URL` points to another port, the home page shows a connection message and **Try again** instead of crashing. Restart the server and reload the page.
 
 The client has no separate demo catalog; `flask --app app seed-demo --test-accounts` populates server data. Never commit `.env.local`.
+
+Catalog search, sorting, pagination, and **Reset filters** request fresh results from Flask through Next.js's same-origin `/catalog-data` proxy. They update the book results in place without navigating or reloading the page.
 
 ## Test the user journeys
 

@@ -12,6 +12,8 @@ import type { BookDetailContentProps } from "@/props/books/BookDetailContentProp
 import BookTabs from "./tabs/BookTabs";
 import GenericWorkflowGuide from "@/Components/custom/workflow/GenericWorkflowGuide";
 import { libraryGuideSteps } from "@/constants/workflow/libraryGuideSteps";
+import GenericProgress from "@/Components/custom/feedback/GenericProgress";
+import { availabilityTone } from "@/lib/progress/availabilityTone";
 
 const BookDetailContent = ({ book, signedIn, purchased, userId, isAdmin }: BookDetailContentProps) => <Container maxW="6xl" py={{ base: "8", md: "14" }}>
   <ChakraLink asChild color="green.700" _dark={{ color: "green.300" }} fontSize="sm" fontWeight="semibold"><Link href="/">← Back to books</Link></ChakraLink>
@@ -26,6 +28,9 @@ const BookDetailContent = ({ book, signedIn, purchased, userId, isAdmin }: BookD
       <Text color="fg.muted" lineHeight="tall" maxW="lg" mt="4">A book worth making room for on your shelf. Discover new perspectives, memorable stories, and the joy of reading.</Text>
       {signedIn && <Suspense><TransactionReturn /></Suspense>}
       <BookPrintActions key={book.slug} slug={book.slug} />
+      <Box mt="5" maxW="lg"><GenericProgress label="Copies available" value={book.availableCopies}
+        max={Math.max(1, book.copiesTotal)} tone={availabilityTone(book.availableCopies, book.copiesTotal)}
+        valueLabel={`${book.availableCopies} of ${book.copiesTotal} copies`} /></Box>
       <LoanActions book={book} signedIn={signedIn} />
       <PurchaseActions slug={book.slug} signedIn={signedIn} purchased={purchased} />
       <Box mt="4"><GenericWorkflowGuide title="Borrow, buy, and review" steps={libraryGuideSteps} /></Box>

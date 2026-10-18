@@ -34,7 +34,7 @@ Choose **Purchase book**. The page now offers **Download receipt**, and the revi
 
 ![Purchase and review form](05-client-review-form.png)
 
-The posted review shows its rating and text. The reviewer can edit or soft delete their own review; an administrator can moderate it. One active review per purchased book is allowed.
+The posted review shows its rating and text. The reviewer can edit or soft delete their own review; an administrator can soft delete a review, but cannot edit its text. One active review per purchased book is allowed.
 
 ![Posted review and receipt action](06-client-review-posted.png)
 
@@ -65,3 +65,15 @@ Choose **Manage roles, permissions & groups** to inspect permissions, roles, gro
 ## Other screenshots
 
 The [screenshot index](../README.md) also includes desktop and mobile light/dark views of the home, book, login, and access pages.
+
+## Refreshed interaction checks — 2026-10-18
+
+These screenshots were captured from the production client build with the local Flask API. Resetting catalog filters updates only the results. The book page uses available copies to color its progress bar, and the guide shows animated progress through its six steps.
+
+| Interaction | Screenshot |
+| --- | --- |
+| Catalog after Reset filters | [Desktop](catalog-reset-desktop.png) |
+| Availability indicator | [Desktop](book-availability-desktop.png) · [Mobile dark](book-availability-mobile-dark.png) |
+| Step-by-step guide | [Desktop](workflow-progress-desktop.png) |
+| Owner edits inside the review card | [Desktop](review-inline-edit-desktop.png) |
+| Administrator sees Delete but no Edit | [Desktop](review-admin-delete-desktop.png) |

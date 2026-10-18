@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { DialogOpenChangeDetails } from "@chakra-ui/react";
 import type { WorkflowStep } from "@/interfaces/ui/workflow/WorkflowStep";
+import { workflowTone } from "@/lib/progress/workflowTone";
 
 export const useWorkflowGuide = (steps: readonly WorkflowStep[]) => {
   const [open, setOpen] = useState(false);
@@ -16,6 +17,6 @@ export const useWorkflowGuide = (steps: readonly WorkflowStep[]) => {
   const next = () => setIndex(Math.min(currentIndex + 1, steps.length - 1));
   const close = () => setOpen(false);
 
-  return { open, changeOpen, currentIndex, step: steps[currentIndex], previous, next, close,
+  return { open, changeOpen, currentIndex, tone: workflowTone(currentIndex, steps.length), step: steps[currentIndex], previous, next, close,
     isFirst: currentIndex === 0, isLast: currentIndex === steps.length - 1 };
 };

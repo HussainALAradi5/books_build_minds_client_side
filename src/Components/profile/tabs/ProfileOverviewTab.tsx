@@ -1,15 +1,12 @@
-import Link from "next/link";
-import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import AccountAvatar from "@/Components/custom/display/AccountAvatar";
 import GenericImagePreview from "@/Components/custom/media/GenericImagePreview";
 import { mediaUrl } from "@/lib/mediaUrl";
 import GenericStatusBadge from "@/Components/custom/GenericStatusBadge";
 import { accountRoleColors, accountRoleLabels } from "@/enums/accounts/AccountRole";
-import { useProfileOverview } from "@/hooks/profile/useProfileOverview";
 import type { ProfileContentProps } from "@/props/profile/ProfileContentProps";
 
 const ProfileOverviewTab = ({ user }: ProfileContentProps) => {
-  const { canManage } = useProfileOverview(user);
   return <Box maxW="3xl" bg="bg.panel" borderWidth="1px" borderColor="border.subtle" borderRadius="2xl" p={{ base: "5", md: "7" }} boxShadow="xs">
     <Stack gap="5">
       <Flex align="center" gap="4" wrap="wrap">

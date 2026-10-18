@@ -17,7 +17,7 @@ const GenericFilter = ({ children, advanced, summary, onApply, onClear, loading 
         {advanced ? <Collapsible.Trigger asChild><CustomButton appearance="ghost" onClick={state.toggle}>
           <LuSlidersHorizontal />{state.expanded ? "Fewer filters" : "More filters"}
         </CustomButton></Collapsible.Trigger> : <Text fontSize="sm" color="fg.muted">Filter results</Text>}
-        <HStack gap="2" flexWrap="wrap"><CustomButton appearance="ghost" disabled={loading} onClick={onClear}><LuRotateCcw />Reset</CustomButton>
+        <HStack gap="2" flexWrap="wrap"><CustomButton type="button" appearance="ghost" disabled={loading} onClick={onClear}><LuRotateCcw />Reset</CustomButton>
           <CustomButton type="submit" loading={loading} loadingText="Searching">Show results</CustomButton></HStack>
       </Flex>
     </Collapsible.Root>

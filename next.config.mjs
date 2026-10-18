@@ -7,5 +7,9 @@ const nextConfig = {
     optimizePackageImports: ["@chakra-ui/react"],
     serverActions: { bodySizeLimit: "27mb" },
   },
+  async rewrites() {
+    const backend = (process.env.BACKEND_URL || "http://127.0.0.1:5000").replace(/\/$/, "");
+    return [{ source: "/catalog-data", destination: `${backend}/api/` }];
+  },
 };
 export default nextConfig;

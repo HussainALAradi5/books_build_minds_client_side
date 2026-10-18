@@ -1,5 +1,6 @@
 import { api } from "@/lib/apiClient";
 import { buildQuery } from "@/lib/query";
+import { publicApiGet } from "@/lib/publicApiClient";
 import type { CreateBookInput } from "@/interfaces/books/CreateBookInput";
 import type { Book } from "@/interfaces/books/Book";
 import type { BookFilters } from "@/interfaces/books/BookFilters";
@@ -18,7 +19,7 @@ const cleanFilters = (filters: BookFilters): BookFilters => ({
 export const bookService = {
   catalog: (filters: BookFilters) => {
     const query = cleanFilters(filters);
-    return api<Page<BookSummary>>(`/books${buildQuery(query)}`);
+    return publicApiGet<Page<BookSummary>>(`/catalog-data${buildQuery(query)}`);
   },
   get: (slug: string) => api<Book>(`/books/${encodeURIComponent(slug)}`),
   create: (book: CreateBookInput) => api<BookResult>("/books", { method: "POST", body: JSON.stringify(book) }),

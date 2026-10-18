@@ -10,7 +10,6 @@ export enum Permission {
   ReviewReadOwn = "review:read.own",
   ReviewWriteOne = "review:write.one",
   ReviewEditOwn = "review:edit.own",
-  ReviewEditAny = "review:edit.any",
   ReviewDeleteOwn = "review:delete.own",
   ReviewDeleteAny = "review:delete.any",
   BookReadAny = "book:read.any",
