@@ -4,4 +4,5 @@ export interface GenericWorkflowGuideProps {
   title: string;
   steps: readonly WorkflowStep[];
   triggerLabel?: string;
+  triggerSize?: "xs" | "sm" | "md";
 }

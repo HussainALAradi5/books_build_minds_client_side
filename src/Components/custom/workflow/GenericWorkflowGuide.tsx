@@ -7,10 +7,10 @@ import { useWorkflowGuide } from "@/hooks/ui/workflow/useWorkflowGuide";
 import type { GenericWorkflowGuideProps } from "@/props/custom/workflow/GenericWorkflowGuideProps";
 import GenericProgress from "@/Components/custom/feedback/GenericProgress";
 
-const GenericWorkflowGuide = ({ title, steps, triggerLabel = "Step-by-step guide" }: GenericWorkflowGuideProps) => {
+const GenericWorkflowGuide = ({ title, steps, triggerLabel = "Step-by-step guide", triggerSize = "md" }: GenericWorkflowGuideProps) => {
   const guide = useWorkflowGuide(steps);
   return <Dialog.Root open={guide.open} onOpenChange={guide.changeOpen} placement="center" scrollBehavior="inside">
-    <Dialog.Trigger asChild><CustomButton appearance="secondary" disabled={!guide.step}>{triggerLabel}</CustomButton></Dialog.Trigger>
+    <Dialog.Trigger asChild><CustomButton appearance="secondary" size={triggerSize} disabled={!guide.step}>{triggerLabel}</CustomButton></Dialog.Trigger>
     <Portal><Dialog.Backdrop /><Dialog.Positioner p="4"><Dialog.Content maxW="lg" maxH="85dvh" borderRadius="xl">
       <Dialog.Header><Dialog.Title>{title}</Dialog.Title></Dialog.Header>
       <Dialog.Body>

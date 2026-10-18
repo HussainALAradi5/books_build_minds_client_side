@@ -9,7 +9,7 @@ import type { LibraryWorkflowProps } from "@/props/books/workflow/LibraryWorkflo
 
 const LibraryWorkflow = (props: LibraryWorkflowProps) => {
   const state = useLibraryWorkflow(props);
-  return <Box><CustomButton appearance="secondary" disabled={props.disabled} loading={state.loading} onClick={state.show}>{props.label}</CustomButton>
+  return <Box><CustomButton appearance={props.action === TransactionKind.Purchase ? "primary" : "secondary"} disabled={props.disabled} loading={state.loading} onClick={state.show}>{props.label}</CustomButton>
     {state.error && <Text color="red.500" role="alert" mt="2">{state.error}</Text>}
     {state.quote && <GenericStepperDialog title={props.label} onClose={state.close} onConfirm={state.confirm}
       confirmLabel={props.action === "borrow" ? "Confirm borrowing" : "Continue to Tap sandbox"} steps={[

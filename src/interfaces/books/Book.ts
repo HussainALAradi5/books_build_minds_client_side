@@ -5,6 +5,7 @@ import type { Author } from "@/interfaces/catalog/Author";
 import type { Publisher } from "@/interfaces/catalog/Publisher";
 
 export interface Book extends BookSummary {
+  description: string;
   reviews: Review[];
   addedByUserId: number;
   purchasedBy: number[];

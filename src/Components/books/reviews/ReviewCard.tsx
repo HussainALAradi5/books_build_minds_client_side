@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Stack, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 import AccountAvatar from "@/Components/custom/display/AccountAvatar";
 import GenericImagePreview from "@/Components/custom/media/GenericImagePreview";
 import CustomButton from "@/Components/custom/CustomButton";
@@ -6,7 +6,7 @@ import { mediaUrl } from "@/lib/mediaUrl";
 import type { ReviewCardProps } from "@/props/books/reviews/ReviewCardProps";
 
 const ReviewCard = ({ review, canEdit, canDelete, editor, onEdit, onDelete }: ReviewCardProps) => <Box as="article"
-  bg="bg.panel" borderWidth="1px" borderColor="border.subtle" borderRadius="2xl" p="5" boxShadow="xs">
+  bg="bg.panel" borderWidth="1px" borderColor={review.isDeleted ? "red.300" : "border.subtle"} borderRadius="2xl" p="5" boxShadow="xs" opacity={review.isDeleted ? 0.8 : 1}>
   <Flex justify="space-between" align="start" gap="3" wrap="wrap">
     <HStack gap="3">
       {review.profilePictureUrl ? <GenericImagePreview src={mediaUrl(review.profilePictureUrl)} alt={`${review.userName}'s profile photo`}>
@@ -16,7 +16,8 @@ const ReviewCard = ({ review, canEdit, canDelete, editor, onEdit, onDelete }: Re
         <Text fontSize="xs" color="fg.muted">{new Date(review.createdAt).toLocaleDateString()}</Text>
       </Stack>
     </HStack>
-    <Text color="orange.500" aria-label={`${review.rating} out of 5 stars`}>★ {review.rating.toFixed(1)} / 5</Text>
+    <HStack gap="2">{review.isDeleted && <Badge colorPalette="red" borderRadius="full">Deleted</Badge>}
+      <Text color="orange.500" aria-label={`${review.rating} out of 5 stars`}>★ {review.rating.toFixed(1)} / 5</Text></HStack>
   </Flex>
   {editor ? <Box mt="4">{editor}</Box> : <>
     <Text mt="4" whiteSpace="pre-wrap">{review.comment}</Text>

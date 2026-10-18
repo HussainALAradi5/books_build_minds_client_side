@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, SimpleGrid, Switch, Text } from "@chakra-ui/react";
 import GenericDialog from "@/Components/custom/GenericDialog";
 import GenericPagination from "@/Components/custom/GenericPagination";
 import { useBookReviews } from "@/hooks/books/reviews/useBookReviews";
@@ -12,7 +12,14 @@ const BookReviews = (props: BookReviewsProps) => {
   const { userId, purchased } = props;
   const state = useBookReviews(props);
   return <Box as="section" id="reviews">
-    <Flex justify="space-between" align="end" gap="4" mb="3"><Heading as="h2" fontFamily="heading" fontSize={{ base: "3xl", md: "4xl" }}>Reader reviews</Heading><Text color="fg.muted">{state.pagination.total} {state.pagination.total === 1 ? "review" : "reviews"}</Text></Flex>
+    <Flex justify="space-between" align="end" gap="4" mb="3" wrap="wrap"><Heading as="h2" fontFamily="heading" fontSize={{ base: "3xl", md: "4xl" }}>Reader reviews</Heading>
+      <Flex align="center" gap="4" wrap="wrap">
+        {props.isAdmin && <Switch.Root checked={state.showDeleted} onCheckedChange={({ checked }) => state.setShowDeleted(checked === true)} colorPalette="green">
+          <Switch.HiddenInput /><Switch.Control><Switch.Thumb /></Switch.Control><Switch.Label>Show deleted reviews</Switch.Label>
+        </Switch.Root>}
+        <Text color="fg.muted">{state.pagination.total} {state.pagination.total === 1 ? "review" : "reviews"}</Text>
+      </Flex>
+    </Flex>
     <Text color="fg.muted" mb="6">Average rating: <Text as="strong" color="fg">{state.average.toFixed(1)} / 5</Text></Text>
     {state.visibleItems.length > 0 ? <SimpleGrid columns={{ base: 1, md: 2 }} gap="5">{state.visibleItems.map((item) =>
       <ReviewCard key={item.reviewId} review={item} canEdit={state.canEdit(item)} canDelete={state.canDelete(item)}

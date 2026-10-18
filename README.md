@@ -32,6 +32,8 @@ The catalog list and book page show a copy-availability bar based on available a
 
 On a book page, the right-side tabs contain **Book details** and a combined, read only **Author & publisher** view; reviews appear below. A reusable information card near the title shows publisher, publication date, ISBN, and condition. Administrators can change an existing book's price in a compact dialog. Other book fields and existing creator profiles are fixed after creation.
 
+The information card also shows the price as a badge, the book's real description from the server, copy availability, and purchase, PDF, borrowing, and rental actions. Purchase and PDF appear together near the book facts. On narrow screens, the details and actions come before the cover so readers can act without scrolling past a tall image. The author and publisher profiles remain in their own tab. A small **How it works** guide lives in the navbar. Reviews hide soft-deleted entries by default. Administrators can turn on **Show deleted reviews** to inspect marked, read-only deleted entries; the server rejects this filter for other roles.
+
 The [footer gallery](docs/screenshots/footer/README.md) shows the updated desktop and mobile navigation footer.
 
 The [workflow screenshots](docs/screenshots/workflows/README.md) show registration, borrowing, purchase and receipt access, reviews, employee profile, and admin management.

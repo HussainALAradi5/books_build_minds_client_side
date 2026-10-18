@@ -9,8 +9,8 @@ import type { LoanActionsProps } from "@/props/books/LoanActionsProps";
 
 const LoanActions = (props: LoanActionsProps) => {
   const { book, loan, message, bookError, returnBook, borrowed } = useBookLoan(props);
-  return <Box bg="bg.subtle" borderLeftWidth="3px" borderColor="green.500" p="5" my="6" borderRadius="sm">
-    <Text fontWeight="bold" mb="3">{book.availableCopies} copies available</Text>
+  return <Box borderTopWidth="1px" borderColor="border.subtle" pt="4" mt="4">
+    <Text fontWeight="semibold" fontSize="sm" mb="3">{loan ? "Your current loan" : "Borrow or rent"}</Text>
     {!props.signedIn ? <Button asChild colorPalette="green" variant="outline"><Link href="/login">Sign in to borrow</Link></Button> : loan ?
       <HStack wrap="wrap"><Text>Due {new Date(loan.dueAt).toLocaleDateString()}</Text>
         <GenericConfirmButton title="Return book?" description="Confirm that this book is being returned to the library." onConfirm={returnBook}>Return book</GenericConfirmButton></HStack> :

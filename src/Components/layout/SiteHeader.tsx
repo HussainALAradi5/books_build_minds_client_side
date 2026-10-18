@@ -7,6 +7,8 @@ import Brand from "@/Components/custom/Brand";
 import AccountMenu from "./account/AccountMenu";
 import { Box, Flex, HStack, Link as ChakraLink, Text } from "@chakra-ui/react";
 import { useColorMode } from "@/hooks/ui/useColorMode";
+import GenericWorkflowGuide from "@/Components/custom/workflow/GenericWorkflowGuide";
+import { libraryGuideSteps } from "@/constants/workflow/libraryGuideSteps";
 
 const SiteHeader = () => {
   const { user, busy, error, logout, canManage } = useHeaderSession();
@@ -16,6 +18,7 @@ const SiteHeader = () => {
       <Brand />
       <HStack as="nav" aria-label="Main navigation" gap={{ base: "2", md: "5" }} wrap="wrap" fontSize="sm" fontWeight="semibold">
         <ChakraLink asChild><Link href="/">Explore books</Link></ChakraLink>
+        <GenericWorkflowGuide title="How the library works" steps={libraryGuideSteps} triggerLabel="How it works" triggerSize="sm" />
         <CustomButton appearance="ghost" onClick={toggle} disabled={!mounted}
           aria-label={mounted ? `Switch to ${dark ? "light" : "dark"} mode` : "Color mode loading"}>
           {mounted ? (dark ? "☀ Light" : "☾ Dark") : "◐ Theme"}

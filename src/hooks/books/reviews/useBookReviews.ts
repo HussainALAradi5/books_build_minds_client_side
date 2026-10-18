@@ -22,11 +22,12 @@ export const useBookReviews = ({ slug, userId, isAdmin, purchased, averageRating
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [showDeleted, setShowDeleted] = useState(false);
 
   const load = useCallback(async (page = 1) => {
     try {
       const [result, mine, book] = await Promise.all([
-        reviewService.all(slug, { page }),
+        reviewService.all(slug, { page, includeDeleted: isAdmin && showDeleted }),
         userId ? reviewService.mine(slug) : Promise.resolve({ review: null }),
         bookService.get(slug),
       ]);
@@ -38,7 +39,7 @@ export const useBookReviews = ({ slug, userId, isAdmin, purchased, averageRating
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not load reviews.");
     }
-  }, [slug, userId]);
+  }, [slug, userId, isAdmin, showDeleted]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => { void load(); }, 0);
@@ -79,12 +80,13 @@ export const useBookReviews = ({ slug, userId, isAdmin, purchased, averageRating
     catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete review."); throw cause; }
     finally { setBusy(false); }
   };
-  const canEdit = (item: Review) => Boolean(userId && item.userId === userId);
-  const canDelete = (item: Review) => Boolean(userId && (item.userId === userId || isAdmin));
+  const canEdit = (item: Review) => Boolean(!item.isDeleted && userId && item.userId === userId);
+  const canDelete = (item: Review) => Boolean(!item.isDeleted && userId && (item.userId === userId || isAdmin));
   const canCreate = Boolean(userId && purchased && !ownReview);
   const visibleItems = ownReview && !items.some((item) => item.reviewId === ownReview.reviewId)
     ? [ownReview, ...items] : items;
   return { items, pagination, ownReview, average, rating, setRating, comment, setComment, description, setDescription,
+    showDeleted, setShowDeleted,
     visibleItems, editingId, deleteId, setDeleteId, busy, error, load, submit, startEdit, clearForm,
     removeSelected, canEdit, canDelete, canCreate };
 };

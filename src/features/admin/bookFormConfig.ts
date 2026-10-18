@@ -6,6 +6,7 @@ import { enumOptions } from "@/lib/enumOptions";
 // This list supplies both the input names and the DTO conversion rules.
 export const bookFormFields = [
   { name: "title", label: "Title", required: true },
+  { name: "description", label: "Description", inputType: "textarea", required: true },
   { name: "author", label: "Author", required: true },
   { name: "publisher", label: "Publisher", required: true },
   { name: "isbn", label: "ISBN", required: true },

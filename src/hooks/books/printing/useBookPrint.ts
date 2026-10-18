@@ -24,5 +24,6 @@ export const useBookPrint = (slug: string) => {
   const toggleCodes = () => execute(async () => {
     setCodes(codes ? null : await bookPrintService.codes(slug));
   });
-  return { codes, busy, error, download, toggleCodes };
+  const closeCodes = () => setCodes(null);
+  return { codes, busy, error, download, toggleCodes, closeCodes };
 };

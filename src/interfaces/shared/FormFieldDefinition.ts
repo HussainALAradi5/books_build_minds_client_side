@@ -1,7 +1,7 @@
 export interface FormFieldDefinition<T> {
   name: Extract<keyof T, string>;
   label: string;
-  inputType?: "text" | "date" | "number" | "url";
+  inputType?: "text" | "date" | "number" | "url" | "textarea";
   valueType?: "text" | "number";
   required?: boolean;
   nullable?: boolean;
