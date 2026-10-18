@@ -68,7 +68,7 @@ The [screenshot index](../README.md) also includes desktop and mobile light/dark
 
 ## Refreshed interaction checks — 2026-10-18
 
-These screenshots were captured from the production client build with the local Flask API. Resetting catalog filters updates only the results. The book page uses available copies to color its progress bar, and the guide shows animated progress through its six steps.
+The earlier interaction screenshots were captured from the production client build with the local Flask API. The book action, description, and deleted-review screenshots were captured from an isolated local preview with seeded sample reviews. Resetting catalog filters updates only the results. The book page uses available copies to color its progress bar, and the guide shows animated progress through its six steps.
 
 | Interaction | Screenshot |
 | --- | --- |
@@ -80,3 +80,6 @@ These screenshots were captured from the production client build with the local 
 | Book information card near the title | ![Desktop book information](book-information-desktop.png) · ![Mobile book information](book-information-mobile.png) |
 | Author and publisher profiles in the upper tab | ![Read only creator profiles](book-creators-above-reviews.png) |
 | Compact administrator price dialog | ![Price dialog](book-edit-dialog.png) |
+| Purchase and PDF actions together, with description in the card | ![Desktop book actions and description](book-actions-description-desktop.png) |
+| Responsive book actions | ![Mobile book actions](book-actions-mobile.png) |
+| Administrator shows soft deleted reviews | ![Deleted review switch](admin-deleted-reviews-toggle.png) |

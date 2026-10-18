@@ -6,7 +6,7 @@ The [latest tabs and guides gallery](tabs/README.md) contains twelve refreshed l
 
 The [illustrated workflow](workflows/README.md) shows what a visitor, client, employee, and administrator can do, with screenshots after borrowing, purchasing, and posting a review.
 
-The [refreshed interaction checks](workflows/README.md#refreshed-interaction-checks--2026-10-18) include catalog Reset, availability and workflow progress, inline review editing, and administrator moderation at desktop and mobile widths.
+The [refreshed interaction checks](workflows/README.md#refreshed-interaction-checks--2026-10-18) include catalog Reset, availability and workflow progress, inline review editing, administrator moderation, book actions and description, and the deleted-review switch at desktop and mobile widths.
 
 The [catalog gallery](catalog/README.md) shows the searchable publisher filter, condition badges, responsive grid and list layouts, and the administrator's selected-row export and import controls.
 
