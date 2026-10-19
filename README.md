@@ -28,18 +28,28 @@ The information card also shows the price as a badge, the book's real descriptio
 
 ## Screenshots
 
-Current desktop and mobile captures from the client and a local Flask preview (19 October 2026). The mobile views use dark mode. Demo book records and account recovery are shown without real payments or email delivery.
+Current captures from the client and an isolated local Flask demo (19 October 2026). Desktop and tablet views use light mode; phone views use dark mode. The borrowing screenshots follow a real loan created in that demo database. The purchase image stops at confirmation before gateway checkout. The transaction card is a **seeded failed sandbox example**, not a completed payment or receipt. Password recovery shows the request form without live email delivery.
 
-| View | Desktop | Mobile |
+| Experience | Wider view | Smaller view |
 | --- | --- | --- |
-| Home | ![Home, desktop light](docs/screenshots/current/home-desktop-light.png) | ![Home, mobile dark](docs/screenshots/current/home-mobile-dark.png) |
-| Book details | ![Book details, desktop light](docs/screenshots/current/book-desktop-light.png) | ![Book details, mobile dark](docs/screenshots/current/book-mobile-dark.png) |
-| Author information | ![Author dialog, desktop light](docs/screenshots/current/author-dialog-desktop-light.png) | ![Author dialog, mobile dark](docs/screenshots/current/author-dialog-mobile-dark.png) |
-| Publisher information | ![Publisher dialog, desktop light](docs/screenshots/current/publisher-dialog-desktop-light.png) | — |
-| Sign in | ![Sign in, desktop light](docs/screenshots/current/login-desktop-light.png) | ![Sign in, mobile dark](docs/screenshots/current/login-mobile-dark.png) |
-| Password recovery | — | ![Password recovery, mobile dark](docs/screenshots/current/password-reset-mobile-dark.png) |
+| Home | ![Home on desktop](docs/screenshots/current/home-desktop-light.png) | ![Home on phone](docs/screenshots/current/home-mobile-dark.png) |
+| Catalog cards | ![Catalog cards on desktop](docs/screenshots/current/catalog-grid-desktop-light.png) | ![Catalog card on phone](docs/screenshots/current/catalog-cards-mobile-dark.png) |
+| Catalog list and tablet layout | ![Catalog list on desktop](docs/screenshots/current/catalog-list-desktop-light.png) | ![Catalog cards on tablet](docs/screenshots/current/catalog-tablet-light.png) |
+| Book details | ![Book details on desktop](docs/screenshots/current/book-desktop-light.png) | ![Book details on phone](docs/screenshots/current/book-mobile-dark.png) |
+| Author information | ![Author profile dialog on desktop](docs/screenshots/current/author-dialog-desktop-light.png) | ![Author profile dialog on phone](docs/screenshots/current/author-dialog-mobile-dark.png) |
+| Sign in | ![Sign in on desktop](docs/screenshots/current/login-desktop-light.png) | ![Sign in on phone](docs/screenshots/current/login-mobile-dark.png) |
+| Registration | ![Registration on tablet](docs/screenshots/current/register-tablet-light.png) | ![Registration on phone](docs/screenshots/current/register-mobile-dark.png) |
+| Password recovery | — | ![Password recovery on phone](docs/screenshots/current/password-reset-mobile-dark.png) |
+| Library guide | — | ![Library guide on phone](docs/screenshots/current/library-guide-mobile-dark.png) |
+| Borrowing terms | ![Borrowing terms step](docs/screenshots/current/borrow-terms-desktop-light.png) | — |
+| Borrowing confirmation | ![Borrowing confirmation step](docs/screenshots/current/borrow-confirm-desktop-light.png) | — |
+| Active loan | ![Active loan on desktop](docs/screenshots/current/profile-loans-desktop-light.png) | ![Active loan card on phone](docs/screenshots/current/profile-loan-card-mobile-dark.png) |
+| Return confirmation | — | ![Return confirmation on phone](docs/screenshots/current/return-confirm-mobile-dark.png) |
+| Purchase confirmation | ![Purchase step before sandbox checkout](docs/screenshots/current/purchase-confirm-desktop-light.png) | — |
+| Seeded failed transaction | ![Failed sandbox transaction on desktop](docs/screenshots/current/profile-transactions-desktop-light.png) | ![Failed sandbox transaction on phone](docs/screenshots/current/profile-transaction-card-mobile-dark.png) |
+| Administration | ![Inventory administration on desktop](docs/screenshots/current/admin-inventory-desktop-light.png) | ![Access management on phone](docs/screenshots/current/admin-access-mobile-dark.png) |
 
-The [screenshot index](docs/screenshots/README.md) links to earlier catalog, profile, access, and library workflow captures.
+The [screenshot index](docs/screenshots/README.md) links to every current capture, including filters, reviews, activity, publisher information, price editing, and responsive role management.
 
 ## Run locally
 
