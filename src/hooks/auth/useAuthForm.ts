@@ -16,7 +16,7 @@ export const useAuthForm = (mode: "login" | "register") => {
     const values = new FormData(event.currentTarget);
     try {
       if (mode === "login") await auth.login(String(values.get("identifier")), String(values.get("password")));
-      else await auth.register(String(values.get("userName")), String(values.get("email")), String(values.get("password")));
+      else await auth.register(String(values.get("userName")), String(values.get("email")), String(values.get("password")), String(values.get("mobileNumber") || ""));
       router.push(mode === "login" ? "/profile" : "/login"); router.refresh();
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Please try again."); }
     finally { setBusy(false); }

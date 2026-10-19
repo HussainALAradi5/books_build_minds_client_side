@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Box, Container, Grid, Link as ChakraLink } from "@chakra-ui/react";
 import BookCover from "@/Components/catalog/BookCover";
-import BookInformationTabs from "./BookInformationTabs";
+import BookOverview from "./BookOverview";
 import BookReviews from "./reviews/BookReviews";
 import type { BookDetailContentProps } from "@/props/books/BookDetailContentProps";
 
@@ -9,7 +9,7 @@ const BookDetailContent = (props: BookDetailContentProps) => <Container maxW="6x
   <ChakraLink asChild color="green.700" _dark={{ color: "green.300" }} fontSize="sm" fontWeight="semibold"><Link href="/">← Back to books</Link></ChakraLink>
   <Grid templateColumns={{ base: "1fr", md: "minmax(280px, 430px) 1fr" }} gap={{ base: "7", md: "14" }} mt="7" alignItems="start">
     <Box order={{ base: 2, md: 1 }}><BookCover book={props.book} large /></Box>
-    <Box order={{ base: 1, md: 2 }}><BookInformationTabs {...props} /></Box>
+    <Box order={{ base: 1, md: 2 }}><BookOverview {...props} /></Box>
   </Grid>
   <Box mt={{ base: "10", md: "14" }} pt="8" borderTopWidth="1px" borderColor="border.subtle">
     <BookReviews slug={props.book.slug} userId={props.userId} isAdmin={props.isAdmin} purchased={props.purchased} averageRating={props.book.averageRating} />

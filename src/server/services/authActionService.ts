@@ -8,9 +8,9 @@ import { fromBackend, toBackend } from "@/lib/caseConversion";
 import type { BackendResult } from "@/interfaces/shared/BackendResult";
 
 export const login = async (identifier: string, password: string): Promise<BackendResult> => {
-  if (!identifier || !password) return { ok: false, status: 400, data: { error: "Username and password are required" } };
+  if (!identifier || !password) return { ok: false, status: 400, data: { error: "Email, username, or mobile number and password are required" } };
   try {
-    const response = await fetch(backendUrl("/login"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(toBackend({ userNameOrEmail: identifier, password })), cache: "no-store" });
+    const response = await fetch(backendUrl("/login"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(toBackend({ identifier, password })), cache: "no-store" });
     const data = await response.json();
     if (!response.ok) return { ok: false, status: response.status, data };
     const jar = await cookies();
@@ -20,10 +20,10 @@ export const login = async (identifier: string, password: string): Promise<Backe
   } catch { return { ok: false, status: 503, data: { error: "Server unavailable" } }; }
 };
 
-export const register = async (userName: string, email: string, password: string): Promise<BackendResult> => {
+export const register = async (userName: string, email: string, password: string, mobileNumber: string): Promise<BackendResult> => {
   if (!userName || !email || !password) return { ok: false, status: 400, data: { error: "All fields are required" } };
   try {
-    const response = await fetch(backendUrl("/register"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(toBackend({ userName, email, password })), cache: "no-store" });
+    const response = await fetch(backendUrl("/register"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(toBackend({ userName, email, password, mobileNumber: mobileNumber || null })), cache: "no-store" });
     return { ok: response.ok, status: response.status, data: fromBackend(await response.json()) };
   } catch { return { ok: false, status: 503, data: { error: "Server unavailable" } }; }
 };

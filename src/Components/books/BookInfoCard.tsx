@@ -6,6 +6,7 @@ import { availabilityTone } from "@/lib/progress/availabilityTone";
 import BookActionBar from "./BookActionBar";
 import LoanActions from "./LoanActions";
 import BookConditionIndicator from "./BookConditionIndicator";
+import BookCreatorActions from "./BookCreatorActions";
 import type { BookInfoCardProps } from "@/props/books/BookInfoCardProps";
 
 const BookInfoCard = ({ book, signedIn, purchased }: BookInfoCardProps) => <GenericCard>
@@ -25,6 +26,7 @@ const BookInfoCard = ({ book, signedIn, purchased }: BookInfoCardProps) => <Gene
     <Box minW="0"><Text color="fg.muted">ISBN</Text><Text fontWeight="semibold" overflowWrap="anywhere">{book.isbn}</Text></Box>
     <Box minW="0"><Text color="fg.muted" mb="2">Condition</Text><BookConditionIndicator condition={book.condition} /></Box>
   </SimpleGrid>
+  <BookCreatorActions author={book.authorDetails} publisher={book.publisherDetails} />
   <GenericDisclosureText title="About this book" content={book.description || "No description has been added yet."} />
   <GenericProgress label="Copies available" value={book.availableCopies} max={Math.max(1, book.copiesTotal)}
     tone={availabilityTone(book.availableCopies, book.copiesTotal)} valueLabel={`${book.availableCopies} of ${book.copiesTotal} copies`} />

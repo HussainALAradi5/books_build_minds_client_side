@@ -21,6 +21,8 @@ const ProfileOverviewTab = ({ user }: ProfileContentProps) => {
       <Box borderTopWidth="1px" borderColor="border.subtle" pt="4">
         <Text fontSize="xs" fontWeight="bold" letterSpacing="wide" color="fg.muted">EMAIL ADDRESS</Text>
         <Text mt="1" fontWeight="medium" overflowWrap="anywhere">{user.email}</Text>
+        {user.mobileNumber && <><Text mt="3" fontSize="xs" fontWeight="bold" letterSpacing="wide" color="fg.muted">MOBILE NUMBER</Text>
+          <Text mt="1" fontWeight="medium">{user.mobileNumber}</Text></>}
       </Box>
       <Flex bg="bg.subtle" borderRadius="xl" p="4" align="center" justify="space-between" gap="4">
         <Box><Text fontSize="sm" color="fg.muted">Books you own</Text><Text fontSize="sm">Purchased books in your library</Text></Box>

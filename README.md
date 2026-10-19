@@ -14,29 +14,32 @@ The related repository links point to the published GitHub repositories.
 
 ## Preview
 
-The latest [Chakra UI tabs and workflow guides](docs/screenshots/tabs/README.md) organize profile, administration, access management, and book detail sections.
-
-![Tabbed profile](docs/screenshots/tabs/profile-desktop.png)
+Chakra UI tabs and workflow guides organize profile, administration, access management, and book detail sections.
 
 Read the [security controls and deployment requirements](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/security/README.md) before exposing a live service.
 
-![Books Builds Minds home page in desktop light mode](docs/screenshots/home-desktop-light.png)
-
-![Books Builds Minds home page in mobile dark mode](docs/screenshots/home-mobile-dark.png)
-
-[View all desktop, mobile, light, and dark screenshots](docs/screenshots/README.md).
-
-The [catalog gallery](docs/screenshots/catalog/README.md) shows the responsive book cards, searchable publisher filter, condition badges, grid/list switch, and administrator table actions.
+The catalog has responsive book cards, a searchable publisher filter, condition badges, a grid/list switch, and administrator table actions.
 
 The catalog list and book page show a copy-availability bar based on available and total copies. A separate, labeled wear scale uses the book's condition category (New, Good, Fair, or Damaged) without presenting it as a measured percentage. The reusable animated progress bar also marks each step of the library workflow and guide.
 
-On a book page, the right-side tabs contain **Book details** and a combined, read only **Author & publisher** view; reviews appear below. A reusable information card near the title shows publisher, publication date, ISBN, and condition. Administrators can change an existing book's price in a compact dialog. Other book fields and existing creator profiles are fixed after creation.
+On a book page, small **About the author** and **About the publisher** buttons open read only profiles with country, description, and works. Reviews appear below. A reusable information card near the title shows publisher, publication date, ISBN, and condition. Administrators can change an existing book's price in a compact dialog. Other book fields and existing creator profiles are fixed after creation.
 
-The information card also shows the price as a badge, the book's real description from the server, copy availability, and purchase, PDF, borrowing, and rental actions. Purchase and PDF appear together near the book facts. On narrow screens, the details and actions come before the cover so readers can act without scrolling past a tall image. The author and publisher profiles remain in their own tab. A small **How it works** guide lives in the navbar. Reviews hide soft-deleted entries by default. Administrators can turn on **Show deleted reviews** to inspect marked, read-only deleted entries; the server rejects this filter for other roles.
+The information card also shows the price as a badge, the book's real description from the server, copy availability, and purchase, PDF, borrowing, and rental actions. Purchase and PDF appear together near the book facts. On narrow screens, the details and actions come before the cover so readers can act without scrolling past a tall image. A small **How it works** guide lives in the navbar. Reviews hide soft-deleted entries by default. Administrators can turn on **Show deleted reviews** to inspect marked, read-only deleted entries; the server rejects this filter for other roles.
 
-The [footer gallery](docs/screenshots/footer/README.md) shows the updated desktop and mobile navigation footer.
+## Screenshots
 
-The [workflow screenshots](docs/screenshots/workflows/README.md) show registration, borrowing, purchase and receipt access, reviews, employee profile, and admin management.
+Current desktop and mobile captures from the client and a local Flask preview (19 October 2026). The mobile views use dark mode. Demo book records and account recovery are shown without real payments or email delivery.
+
+| View | Desktop | Mobile |
+| --- | --- | --- |
+| Home | ![Home, desktop light](docs/screenshots/current/home-desktop-light.png) | ![Home, mobile dark](docs/screenshots/current/home-mobile-dark.png) |
+| Book details | ![Book details, desktop light](docs/screenshots/current/book-desktop-light.png) | ![Book details, mobile dark](docs/screenshots/current/book-mobile-dark.png) |
+| Author information | ![Author dialog, desktop light](docs/screenshots/current/author-dialog-desktop-light.png) | ![Author dialog, mobile dark](docs/screenshots/current/author-dialog-mobile-dark.png) |
+| Publisher information | ![Publisher dialog, desktop light](docs/screenshots/current/publisher-dialog-desktop-light.png) | — |
+| Sign in | ![Sign in, desktop light](docs/screenshots/current/login-desktop-light.png) | ![Sign in, mobile dark](docs/screenshots/current/login-mobile-dark.png) |
+| Password recovery | — | ![Password recovery, mobile dark](docs/screenshots/current/password-reset-mobile-dark.png) |
+
+The [screenshot index](docs/screenshots/README.md) links to earlier catalog, profile, access, and library workflow captures.
 
 ## Run locally
 
@@ -71,7 +74,9 @@ After running `seed-demo --test-accounts` on the server, sign in at `/login`:
 | Employee | `demo_employee` | `LibraryStaff2026!` | Browse books, borrow or rent, purchase, and manage your own profile. Admin pages remain restricted. |
 | Client | `demo_client` | `LibraryReader2026!` | Borrow or rent a book, return it, purchase a book, download its receipt, then write a review. |
 
-Anonymous visitors can browse the catalog and reviews, and register as a client. The seeded `demo_visitor` record is inactive and cannot sign in. Employees currently start with the same member permissions as clients; an admin can assign extra roles or groups through access management. See the [step-by-step workflow guide](docs/screenshots/workflows/README.md).
+Anonymous visitors can browse the catalog and reviews, and register as a client. The seeded `demo_visitor` record is inactive and cannot sign in. Employees currently start with the same member permissions as clients; an admin can assign extra roles or groups through access management.
+
+Sign in with email, username, or an optional international mobile number and a required password. **Forgot password?** sends a six-digit code to the account's saved email, even when the username or mobile number identifies it. Configure server-side email delivery before using the reset page; the client never receives the code from the API.
 
 ## Structure
 
@@ -97,7 +102,7 @@ npm run lint
 npm run build
 ```
 
-See the [screenshot index](docs/screenshots/README.md) and the [feature documentation](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md).
+See the [feature documentation](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md).
 
 ## Print a book record
 
@@ -108,9 +113,3 @@ On a book page, choose **Download book PDF** or **Show QR and barcode**. The ser
 Borrowing now requires a server quote, accepted library terms and final confirmation. Purchases and rentals use Tap's BHD sandbox with persisted transactions and immutable PDF receipts. Delete/bulk changes use confirmation dialogs; failed changes remain visible for retry.
 
 See [payment setup, services, endpoint contracts and release limits](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/features/payments/README.md). Configure `TAP_SECRET_KEY` and the public HTTPS `TAP_WEBHOOK_URL` on the server. Live keys are rejected. Real sandbox verification still requires your own provider account and webhook. No secrets belong in the client repository.
-
-### New workflow screenshots
-
-![Borrowing confirmation](docs/screenshots/payments/borrow-confirm-desktop.png)
-
-[Mobile, dark-mode, return and transaction screenshots](docs/screenshots/payments/README.md)

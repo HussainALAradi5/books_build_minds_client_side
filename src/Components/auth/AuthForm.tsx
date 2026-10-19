@@ -38,8 +38,12 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                 <Field.Root required><Field.Label>Email address</Field.Label>
                   <Input name="email" type="email" autoComplete="email" required size="lg" borderRadius="xl" bg="bg.subtle" />
                 </Field.Root>
+                <Field.Root><Field.Label>Mobile number (optional)</Field.Label>
+                  <Input name="mobileNumber" type="tel" autoComplete="tel" placeholder="+97312345678" size="lg" borderRadius="xl" bg="bg.subtle" />
+                  <Field.HelperText>Include your country code.</Field.HelperText>
+                </Field.Root>
               </>}
-              {login && <Field.Root required><Field.Label>Username or email</Field.Label>
+              {login && <Field.Root required><Field.Label>Email, username, or mobile number</Field.Label>
                 <Input name="identifier" autoComplete="username" required size="lg" borderRadius="xl" bg="bg.subtle" />
               </Field.Root>}
               <Field.Root required><Field.Label>Password</Field.Label>
@@ -53,6 +57,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                 </Box>
                 {!login && <Field.HelperText>At least 5 letters and 3 numbers.</Field.HelperText>}
               </Field.Root>
+              {login && <ChakraLink asChild alignSelf="end" color="green.700" _dark={{ color: "green.300" }} fontSize="sm"><Link href="/forgot-password">Forgot password?</Link></ChakraLink>}
               {error && <Text color="red.500" role="alert" fontSize="sm">{error}</Text>}
               <CustomButton type="submit" size="lg" w="full" borderRadius="xl" mt="2" loading={busy} loadingText="Please wait...">
                 {login ? "Sign in" : "Create account"} →

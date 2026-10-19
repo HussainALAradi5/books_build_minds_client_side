@@ -4,4 +4,5 @@ import type { Publisher } from "@/interfaces/catalog/Publisher";
 export interface CatalogProfileProps {
   label: string;
   profile: Author | Publisher | null;
+  embedded?: boolean;
 }
