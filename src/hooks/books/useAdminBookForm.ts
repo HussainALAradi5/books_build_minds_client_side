@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { CreateBookInput } from "@/interfaces/books/CreateBookInput";
-import { bookFormFields } from "@/features/admin/bookFormConfig";
+import { bookFormFields } from "@/constants/books/bookFormFields";
 import { formDataToObject } from "@/lib/formDataToObject";
 import { bookService } from "@/services/bookService";
 

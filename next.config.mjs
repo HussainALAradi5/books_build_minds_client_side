@@ -4,6 +4,7 @@ const nextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   distDir: process.env.NEXT_DIST_DIR || (process.env.NODE_ENV === "production" ? ".next-build" : ".next-output"),
   experimental: {
+    cpus: 1,
     optimizePackageImports: ["@chakra-ui/react"],
     serverActions: { bodySizeLimit: "27mb" },
     webpackBuildWorker: false,

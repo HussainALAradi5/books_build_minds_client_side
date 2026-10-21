@@ -3,6 +3,7 @@ import AccountAvatar from "@/Components/custom/display/AccountAvatar";
 import GenericImagePreview from "@/Components/custom/media/GenericImagePreview";
 import CustomButton from "@/Components/custom/CustomButton";
 import { mediaUrl } from "@/lib/mediaUrl";
+import { formatDate } from "@/lib/dates/formatDate";
 import type { ReviewCardProps } from "@/props/books/reviews/ReviewCardProps";
 
 const ReviewCard = ({ review, canEdit, canDelete, editor, onEdit, onDelete }: ReviewCardProps) => <Box as="article"
@@ -13,7 +14,7 @@ const ReviewCard = ({ review, canEdit, canDelete, editor, onEdit, onDelete }: Re
         <AccountAvatar name={review.userName} imageUrl={review.profilePictureUrl} size="10" />
       </GenericImagePreview> : <AccountAvatar name={review.userName} size="10" />}
       <Stack gap="0"><Text fontWeight="semibold">{review.userName}</Text>
-        <Text fontSize="xs" color="fg.muted">{new Date(review.createdAt).toLocaleDateString()}</Text>
+        <Text fontSize="xs" color="fg.muted">{formatDate(review.createdAt)}</Text>
       </Stack>
     </HStack>
     <HStack gap="2">{review.isDeleted && <Badge colorPalette="red" borderRadius="full">Deleted</Badge>}

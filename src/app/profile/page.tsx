@@ -1,4 +1,4 @@
-import ProfileView from "@/features/profile/ProfileView";
+import ProfileView from "@/server/views/profile/ProfileView";
 const Page = () => <ProfileView />;
 
 export default Page;

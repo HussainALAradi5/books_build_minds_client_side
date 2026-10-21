@@ -93,14 +93,18 @@ Sign in with email, username, or an optional international mobile number and a r
 | Path | Purpose |
 | --- | --- |
 | `src/app` | Thin Next.js route pages and layouts |
-| `src/features` | Feature view composition and access guards |
+| `src/server/views` | Route-level data loading and access checks before rendering components |
+| `src/config/backendUrl.ts` | Shared server-side backend origin and API URL construction |
 | `src/Components/custom` | Reusable Chakra UI buttons, forms, tables, filters, pagination, dialogs, and upload controls |
-| `src/Components/*` | Feature render components, including the admin access page |
+| `src/Components/*` | Catalog, book, profile, and admin rendering components |
+| `src/constants` | Typed form fields, catalog presentation values, and workflow steps |
 | `src/hooks` and `src/providers` | State, actions, and feature context |
 | `src/services` | Typed API functions using the shared `apiClient` |
 | `src/interfaces`, `src/props`, `src/enums` | Client contracts, component props, enum labels and colors |
-| `src/server` | Protected Next.js server functions and backend request forwarding |
+| `src/server/services` | Protected Next.js server actions and backend request forwarding |
 | `docs/screenshots` | Desktop and mobile light/dark screenshots |
+
+Catalog and book pages get their initial typed data through `src/server/services/bookQueryService.ts`. In the browser, `useBookCatalog` calls `bookService.catalog`, which requests server-filtered and paginated data. Profile and administration components call their typed hooks, which use the corresponding services in `src/services`. Table columns and form definitions live in `src/constants`; components render the results. Static headings and marketing copy are presentation text, while books, publishers, users, loans, requests, and reviews come from the server.
 
 The browser uses typed service functions and an HttpOnly session cookie. Public catalog and review reads work without a session. The API enforces all protected actions; client guards only control what the user sees. Reviews combine a rating, comment, and optional description, and require a purchase.
 

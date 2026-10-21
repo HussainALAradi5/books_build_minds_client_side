@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { backendUrl } from "./server-api";
+import { backendUrl } from "@/config/backendUrl";
 import { fromBackend } from "./caseConversion";
 import type { User } from "@/interfaces/accounts/User";
 

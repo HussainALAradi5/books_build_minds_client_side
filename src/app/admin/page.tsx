@@ -1,4 +1,4 @@
-import AdminView from "@/features/admin/AdminView";
+import AdminView from "@/server/views/admin/AdminView";
 const Page = () => <AdminView />;
 
 export default Page;

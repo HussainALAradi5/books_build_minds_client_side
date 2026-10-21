@@ -1,6 +1,6 @@
 "use server";
 
-import { backendUrl } from "@/lib/server-api";
+import { backendUrl } from "@/config/backendUrl";
 import { fromBackend, toBackend } from "@/lib/caseConversion";
 import type { BackendResult } from "@/interfaces/shared/BackendResult";
 

@@ -1,7 +1,7 @@
 import type { BookCoverProps } from "@/props/catalog/BookCoverProps";
 import { Box, Image, Text } from "@chakra-ui/react";
 import { mediaUrl } from "@/lib/mediaUrl";
-import { bookCoverPalette } from "@/features/catalog/bookCoverPalette";
+import { bookCoverPalette } from "@/constants/catalog/bookCoverPalette";
 import GenericImagePreview from "@/Components/custom/media/GenericImagePreview";
 
 const BookCover = ({ book, large = false, compact = false }: BookCoverProps) => {

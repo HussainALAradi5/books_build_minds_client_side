@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { backendUrl } from "@/lib/server-api";
+import { backendUrl } from "@/config/backendUrl";
 import { cookieOptions } from "@/lib/security";
 import { TOKEN_COOKIE, USER_COOKIE } from "@/lib/session";
 import { fromBackend, toBackend } from "@/lib/caseConversion";

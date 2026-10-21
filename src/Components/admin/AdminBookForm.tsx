@@ -3,7 +3,7 @@
 import { Box, Heading } from "@chakra-ui/react";
 import MediaUpload from "@/Components/media/MediaUpload";
 import GenericForm from "@/Components/custom/GenericForm";
-import { bookFormFields } from "@/features/admin/bookFormConfig";
+import { bookFormFields } from "@/constants/books/bookFormFields";
 import { useAdminBookForm } from "@/hooks/books/useAdminBookForm";
 
 const AdminBookForm = () => {

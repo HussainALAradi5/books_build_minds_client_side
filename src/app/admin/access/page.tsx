@@ -1,4 +1,4 @@
-import AccessAdminView from "@/features/admin/AccessAdminView";
+import AccessAdminView from "@/server/views/admin/AccessAdminView";
 
 const Page = () => <AccessAdminView />;
 

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import BookDetailContent from "@/Components/books/BookDetailContent";
-import { getBook } from "@/lib/server-api";
+import { bookQueryService } from "@/server/services/bookQueryService";
 import { getSessionUser } from "@/lib/session";
 import type { BookPageProps } from "@/props/books/BookPageProps";
 import { Permission } from "@/enums/accounts/Permission";
@@ -9,7 +9,7 @@ import { AccountRole } from "@/enums/accounts/AccountRole";
 
 const BookDetailView = async ({ params }: BookPageProps) => {
   const { slug } = await params;
-  const book = await getBook(slug);
+  const book = await bookQueryService.get(slug);
   if (!book) notFound();
   const user = await getSessionUser();
   const purchased = Boolean(user?.purchasedBooks.includes(book.bookId));

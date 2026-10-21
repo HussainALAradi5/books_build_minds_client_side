@@ -1,4 +1,4 @@
-import BookDetailView from "@/features/book/BookDetailView";
+import BookDetailView from "@/server/views/books/BookDetailView";
 import type { BookPageProps } from "@/props/books/BookPageProps";
 
 const Page = (props: BookPageProps) => <BookDetailView {...props} />;

@@ -5,6 +5,7 @@ import GenericConfirmButton from "@/Components/custom/actions/GenericConfirmButt
 import LibraryWorkflow from "./workflow/LibraryWorkflow";
 import { TransactionKind } from "@/enums/payments/TransactionKind";
 import { useBookLoan } from "@/hooks/books/useBookLoan";
+import { formatDate } from "@/lib/dates/formatDate";
 import type { LoanActionsProps } from "@/props/books/LoanActionsProps";
 
 const LoanActions = (props: LoanActionsProps) => {
@@ -12,7 +13,7 @@ const LoanActions = (props: LoanActionsProps) => {
   return <Box borderTopWidth="1px" borderColor="border.subtle" pt="4" mt="4">
     <Text fontWeight="semibold" fontSize="sm" mb="3">{loan ? "Your current loan" : "Borrow or rent"}</Text>
     {!props.signedIn ? <Button asChild colorPalette="green" variant="outline"><Link href="/login">Sign in to borrow</Link></Button> : loan ?
-      <HStack wrap="wrap"><Text>Due {new Date(loan.dueAt).toLocaleDateString()}</Text>
+      <HStack wrap="wrap"><Text>Due {formatDate(loan.dueAt)}</Text>
         <GenericConfirmButton title="Return book?" description="Confirm that this book is being returned to the library." onConfirm={returnBook}>Return book</GenericConfirmButton></HStack> :
       <HStack wrap="wrap"><LibraryWorkflow slug={book.slug} action="borrow" label="Borrow book" disabled={book.availableCopies < 1} onCompleted={borrowed} />
         <LibraryWorkflow slug={book.slug} action={TransactionKind.Rental} label="Rent book" disabled={book.availableCopies < 1} /></HStack>}

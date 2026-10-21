@@ -2,7 +2,7 @@
 
 import { Text } from "@chakra-ui/react";
 import GenericForm from "@/Components/custom/GenericForm";
-import { bookPriceFormFields } from "@/features/admin/bookPriceFormFields";
+import { bookPriceFormFields } from "@/constants/books/bookPriceFormFields";
 import { useBookPriceEdit } from "@/hooks/books/useBookPriceEdit";
 import type { BookPriceFormProps } from "@/props/books/BookPriceFormProps";
 
