@@ -28,15 +28,17 @@ The information card also shows the price as a badge, the book's real descriptio
 
 ## Screenshots
 
-Current captures from the client and an isolated local Flask demo (19 October 2026). Desktop and tablet views use light mode; phone views use dark mode. The borrowing screenshots follow a real loan created in that demo database. The purchase image stops at confirmation before gateway checkout. The transaction card is a **seeded failed sandbox example**, not a completed payment or receipt. Password recovery shows the request form without live email delivery.
+Most captures were taken from the client and an isolated local Flask demo on 19 October 2026. New dark desktop captures from 21 October show the refreshed local PostgreSQL demo descriptions and creator profiles. The borrowing screenshots follow a real loan created in the isolated demo database. The purchase image stops at confirmation before gateway checkout. The transaction card is a **seeded failed sandbox example**, not a completed payment or receipt. Password recovery shows the request form without live email delivery.
 
-| Experience | Wider view | Smaller view |
+| Experience | Wider view | Smaller or alternate view |
 | --- | --- | --- |
 | Home | ![Home on desktop](docs/screenshots/current/home-desktop-light.png) | ![Home on phone](docs/screenshots/current/home-mobile-dark.png) |
 | Catalog cards | ![Catalog cards on desktop](docs/screenshots/current/catalog-grid-desktop-light.png) | ![Catalog card on phone](docs/screenshots/current/catalog-cards-mobile-dark.png) |
 | Catalog list and tablet layout | ![Catalog list on desktop](docs/screenshots/current/catalog-list-desktop-light.png) | ![Catalog cards on tablet](docs/screenshots/current/catalog-tablet-light.png) |
 | Book details | ![Book details on desktop](docs/screenshots/current/book-desktop-light.png) | ![Book details on phone](docs/screenshots/current/book-mobile-dark.png) |
 | Author information | ![Author profile dialog on desktop](docs/screenshots/current/author-dialog-desktop-light.png) | ![Author profile dialog on phone](docs/screenshots/current/author-dialog-mobile-dark.png) |
+| Refreshed creator profiles | ![Author profile with country and description](docs/screenshots/current/author-dialog-desktop-dark.jpg) | ![Publisher profile with country and description](docs/screenshots/current/publisher-dialog-desktop-dark.jpg) |
+| Refreshed book description | ![Book information and seeded description](docs/screenshots/current/book-description-desktop-dark.jpg) | — |
 | Sign in | ![Sign in on desktop](docs/screenshots/current/login-desktop-light.png) | ![Sign in on phone](docs/screenshots/current/login-mobile-dark.png) |
 | Registration | ![Registration on tablet](docs/screenshots/current/register-tablet-light.png) | ![Registration on phone](docs/screenshots/current/register-mobile-dark.png) |
 | Password recovery | — | ![Password recovery on phone](docs/screenshots/current/password-reset-mobile-dark.png) |
