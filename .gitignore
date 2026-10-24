@@ -9,3 +9,4 @@ node_modules/
 *.log
 tsconfig.tsbuildinfo
 .vscode/launch.json
+next-env.d.ts

@@ -2,7 +2,7 @@ const nextConfig = {
   reactStrictMode: true,
   devIndicators: false,
   allowedDevOrigins: ["127.0.0.1"],
-  distDir: process.env.NEXT_DIST_DIR || (process.env.NODE_ENV === "production" ? ".next-build" : ".next-output"),
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   experimental: {
     cpus: 1,
     optimizePackageImports: ["@chakra-ui/react"],
