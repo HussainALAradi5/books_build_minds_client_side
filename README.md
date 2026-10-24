@@ -1,6 +1,6 @@
 # Books Builds Minds — client repository
 
-This is the **client** repository for Books Builds Minds. The matching [server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) provides the catalog, authentication, permissions, uploads, workflows, and demo data. The [documentation repository](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md) describes each service and endpoint. The related repository links point to the published GitHub repositories.
+This is the **client** repository for Books Builds Minds. The matching [server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) provides the catalog, authentication, permissions, uploads, workflows, and demo data. The [documentation repository](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md) describes each service and endpoint. The [Flutter mobile repository](https://github.com/HussainALAradi5/books_build_minds_mobile/blob/main/README.md) uses the same Flask API. The related repository links point to the published GitHub repositories.
 
 ## Related repositories
 
@@ -8,6 +8,7 @@ This is the **client** repository for Books Builds Minds. The matching [server r
 | --- | --- | --- |
 | Client | This repository | Next.js pages, Chakra UI components, hooks, typed API services, and screenshots |
 | Server | [Open server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) | Flask API, business rules, PostgreSQL models, migrations, and demo seeding |
+| Mobile | [Open Flutter repository](https://github.com/HussainALAradi5/books_build_minds_mobile/blob/main/README.md) | Flutter reader workflows, typed API client, and mobile screenshots |
 | Documentation | [Open documentation repository](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/README.md) | Setup guides and feature-by-feature service and endpoint references |
 
 The related repository links point to the published GitHub repositories.
