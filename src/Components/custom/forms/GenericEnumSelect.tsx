@@ -11,8 +11,8 @@ const GenericEnumSelect = <T extends string>(props: GenericEnumSelectProps<T>) =
     <Select.Control><Select.Trigger bg="bg.panel" borderRadius="lg">
       {props.value ? <GenericStatusBadge value={props.value} labels={props.labels} colors={props.colors} /> : <Text>{props.allLabel || "All"}</Text>}
     </Select.Trigger><Select.IndicatorGroup><Select.Indicator /></Select.IndicatorGroup></Select.Control>
-    <Portal><Select.Positioner><Select.Content borderRadius="xl" bg="bg.panel">
-      {state.collection.items.map((item) => <Select.Item item={item} key={item.value}>
+    <Portal><Select.Positioner><Select.Content borderRadius="xl" bg="bg.panel" color="fg" borderWidth="1px" borderColor="border.emphasized" boxShadow="xl" zIndex="popover">
+      {state.collection.items.map((item) => <Select.Item item={item} key={item.value} _highlighted={{ bg: "bg.muted" }}>
         <Select.ItemText>{item.value ? <GenericStatusBadge value={item.value as T} labels={props.labels} colors={props.colors} /> : item.label}</Select.ItemText>
         <Select.ItemIndicator />
       </Select.Item>)}

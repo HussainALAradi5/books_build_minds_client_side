@@ -1,3 +1,5 @@
+import type { BadgeProps } from "@chakra-ui/react";
+
 export interface FormFieldDefinition<T> {
   name: Extract<keyof T, string>;
   label: string;
@@ -9,4 +11,6 @@ export interface FormFieldDefinition<T> {
   step?: string;
   defaultValue?: string;
   options?: readonly { value: string; label: string }[];
+  layout?: "full" | "half";
+  optionColors?: Record<string, NonNullable<BadgeProps["colorPalette"]>>;
 }
