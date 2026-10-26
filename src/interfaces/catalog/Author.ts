@@ -6,6 +6,7 @@ export interface Author extends BaseEntity {
   authorId: number;
   name: string;
   description: string;
+  address: string;
   country: Country | null;
   works: Work[];
 }

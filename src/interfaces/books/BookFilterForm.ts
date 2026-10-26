@@ -5,6 +5,7 @@ import type { SortDirection } from "@/enums/shared/SortDirection";
 export interface BookFilterForm {
   q: string;
   publisher: string;
+  category: string;
   condition: BookStatus | "";
   minPrice: string;
   maxPrice: string;

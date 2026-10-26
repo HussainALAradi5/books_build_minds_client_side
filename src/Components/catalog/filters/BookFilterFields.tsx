@@ -13,7 +13,8 @@ const BookFilterFields = ({ form, update }: BookFiltersProps) => <Grid width="fu
   <Box minW="0"><FilterField label="Sort by"><NativeSelect.Root bg="bg.panel"><NativeSelect.Field value={form.sort} onChange={(event) => update("sort", event.target.value as typeof form.sort)}>
     {bookSortOptions.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
   </NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></FilterField></Box>
-  <Box minW="0"><GenericEnumSelect label="Order" includeAll={false} value={form.sortDirection} labels={sortDirectionLabels}
+  {form.sort !== "most_rated" && form.sort !== "best_selling" && <Box minW="0"><GenericEnumSelect label="Order" includeAll={false} value={form.sortDirection} labels={sortDirectionLabels}
     colors={sortDirectionColors} onChange={(value) => { if (value) update("sortDirection", value); }} /></Box>
+  }
 </Grid>;
 export default BookFilterFields;

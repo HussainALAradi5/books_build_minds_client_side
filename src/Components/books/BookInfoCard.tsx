@@ -17,6 +17,7 @@ const BookInfoCard = ({ book, signedIn, purchased }: BookInfoCardProps) => <Gene
     </Badge>
   </Flex>
   <Text fontSize="sm" color="fg.muted"><Text as="span" color="orange.500">★</Text> {book.averageRating.toFixed(1)} reader rating</Text>
+  <Flex gap="2" wrap="wrap">{book.categories.map((category) => <Badge key={category.categoryId} colorPalette="teal" borderRadius="full" px="2">{category.name}</Badge>)}</Flex>
   <Box borderTopWidth="1px" borderColor="border.subtle" pt="4">
     <BookActionBar slug={book.slug} signedIn={signedIn} purchased={purchased} />
   </Box>

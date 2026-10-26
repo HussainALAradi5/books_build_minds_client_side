@@ -2,13 +2,17 @@ import type { CreateBookInput } from "@/interfaces/books/CreateBookInput";
 import type { FormFieldDefinition } from "@/interfaces/shared/FormFieldDefinition";
 import { BookStatus, bookStatusColors, bookStatusLabels } from "@/enums/books/BookStatus";
 import { enumOptions } from "@/lib/enumOptions";
+import { authorOptions } from "@/lib/catalog/authorOptions";
+import { publisherOptions } from "@/lib/catalog/publisherOptions";
+import { categoryOptions } from "@/lib/catalog/categoryOptions";
 
 // This list supplies both the input names and the DTO conversion rules.
 export const bookFormFields = [
   { name: "title", label: "Title", required: true },
   { name: "description", label: "Description", inputType: "textarea", required: true },
-  { name: "author", label: "Author", required: true, layout: "half" },
-  { name: "publisher", label: "Publisher", required: true, layout: "half" },
+  { name: "author", label: "Author", required: true, layout: "half", loadOptions: authorOptions },
+  { name: "publisher", label: "Publisher", required: true, layout: "half", loadOptions: publisherOptions },
+  { name: "categoryIds", label: "Categories (up to 5)", required: true, valueType: "numberList", loadOptions: categoryOptions, multiple: true },
   { name: "isbn", label: "ISBN", required: true },
   { name: "publishedAt", label: "Publication date", inputType: "date", required: true, layout: "half" },
   { name: "price", label: "Price in BHD", inputType: "number", valueType: "number", min: "0.001", step: "0.001", required: true, layout: "half" },

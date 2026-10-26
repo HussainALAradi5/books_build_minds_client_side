@@ -8,7 +8,7 @@ import { useCountryOptions } from "@/hooks/catalog/useCountryOptions";
 
 const CatalogEditor = (props: CatalogEditorProps) => {
   const { kind } = props;
-  const { name, setName, description, setDescription, countryCode, setCountryCode, busy, error, message, submit } = useCatalogEditor(props);
+  const { name, setName, description, setDescription, address, setAddress, countryCode, setCountryCode, busy, error, message, submit } = useCatalogEditor(props);
   const countryOptions = useCountryOptions();
   return <Box as="section" bg="bg.panel" borderWidth="1px" borderRadius="lg" p="6">
     <Heading as="h2" fontSize="2xl" fontFamily="heading" mb="4">Add {kind}</Heading>
@@ -19,6 +19,7 @@ const CatalogEditor = (props: CatalogEditorProps) => {
         {countryOptions.items.map((country) => <option key={country.code} value={country.code}>{country.name}</option>)}
       </NativeSelect.Field><NativeSelect.Indicator /></NativeSelect.Root></Field.Root>
       <Field.Root><Field.Label>Description</Field.Label><Textarea value={description} onChange={(event) => setDescription(event.target.value)} maxLength={5000} minH="100px" /></Field.Root>
+      <Field.Root><Field.Label>Address (optional)</Field.Label><Input value={address} onChange={(event) => setAddress(event.target.value)} maxLength={500} /></Field.Root>
       <CustomButton type="submit" loading={busy} loadingText="Saving...">Add {kind}</CustomButton>
     </Stack></form>
     {message && <Text mt="3" color="green.600" role="status">{message}</Text>}

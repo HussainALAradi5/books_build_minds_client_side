@@ -2,8 +2,12 @@ import { Field, Input, NativeSelect, Textarea } from "@chakra-ui/react";
 import type { GenericFormFieldProps } from "@/props/custom/forms/GenericFormFieldProps";
 import { blockNegativeNumberKey, nonNegativeNumber } from "@/lib/forms/nonNegativeNumber";
 import GenericEnumFormField from "./forms/GenericEnumFormField";
+import GenericSearchFormField from "./forms/GenericSearchFormField";
+import GenericMultiSearchFormField from "./forms/GenericMultiSearchFormField";
 
-const GenericFormField = <T,>({ field }: GenericFormFieldProps<T>) => field.options && field.optionColors
+const GenericFormField = <T,>({ field }: GenericFormFieldProps<T>) => field.loadOptions && field.multiple
+  ? <GenericMultiSearchFormField field={field} /> : field.loadOptions
+  ? <GenericSearchFormField field={field} /> : field.options && field.optionColors
   ? <GenericEnumFormField field={field} />
   : <Field.Root required={field.required}>
   <Field.Label>{field.label}</Field.Label>

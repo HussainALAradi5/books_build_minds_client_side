@@ -19,7 +19,7 @@ Chakra UI tabs and workflow guides organize profile, administration, access mana
 
 Read the [security controls and deployment requirements](https://github.com/HussainALAradi5/books_build_minds_documentation/blob/main/security/README.md) before exposing a live service.
 
-The catalog has responsive book cards, a searchable publisher filter, condition badges, a grid/list switch, and administrator table actions.
+The catalog has responsive book cards, searchable publisher and category filters, condition badges, a grid/list switch, and administrator table actions. Readers can rank books by rating or completed sales and open a paginated top-five view for each category. Administrators search and page authors, publishers, and categories when adding books; a book can have up to five categories.
 
 The catalog list and book page show a copy-availability bar based on available and total copies. A separate, labeled wear scale uses the book's condition category (New, Good, Fair, or Damaged) without presenting it as a measured percentage. The reusable animated progress bar also marks each step of the library workflow and guide.
 
@@ -29,13 +29,15 @@ The information card also shows the price as a badge, the book's real descriptio
 
 ## Screenshots
 
-Most captures were taken from the client and an isolated local Flask demo on 19 October 2026. New dark desktop captures from 21 October show the refreshed local PostgreSQL demo descriptions and creator profiles. The borrowing screenshots follow a real loan created in the isolated demo database. The purchase image stops at confirmation before gateway checkout. The transaction card is a **seeded failed sandbox example**, not a completed payment or receipt. Password recovery shows the request form without live email delivery.
+Most captures were taken from the client and an isolated local Flask demo on 19 October 2026. Dark desktop captures from 21 October show the refreshed local PostgreSQL demo descriptions and creator profiles. The category ranking captures from 26 October use the local Flask API. The borrowing screenshots follow a real loan created in the isolated demo database. The purchase image stops at confirmation before gateway checkout. The transaction card is a **seeded failed sandbox example**, not a completed payment or receipt. Password recovery shows the request form without live email delivery.
 
 | Experience | Wider view | Smaller or alternate view |
 | --- | --- | --- |
 | Home | ![Home on desktop](docs/screenshots/current/home-desktop-light.png) | ![Home on phone](docs/screenshots/current/home-mobile-dark.png) |
 | Catalog cards | ![Catalog cards on desktop](docs/screenshots/current/catalog-grid-desktop-light.png) | ![Catalog card on phone](docs/screenshots/current/catalog-cards-mobile-dark.png) |
 | Catalog list and tablet layout | ![Catalog list on desktop](docs/screenshots/current/catalog-list-desktop-light.png) | ![Catalog cards on tablet](docs/screenshots/current/catalog-tablet-light.png) |
+| Top five by category | ![Best selling category groups in light mode](docs/screenshots/current/category-top-five-desktop-light.jpg) | ![Most rated category groups in dark mode](docs/screenshots/current/category-top-five-desktop-dark.jpg) |
+| Searchable book creation | ![Admin book form with selected author and category](docs/screenshots/current/admin-book-categories-desktop-light.jpg) | — |
 | Book details | ![Book details on desktop](docs/screenshots/current/book-desktop-light.png) | ![Book details on phone](docs/screenshots/current/book-mobile-dark.png) |
 | Author information | ![Author profile dialog on desktop](docs/screenshots/current/author-dialog-desktop-light.png) | ![Author profile dialog on phone](docs/screenshots/current/author-dialog-mobile-dark.png) |
 | Refreshed creator profiles | ![Author profile with country and description](docs/screenshots/current/author-dialog-desktop-dark.jpg) | ![Publisher profile with country and description](docs/screenshots/current/publisher-dialog-desktop-dark.jpg) |

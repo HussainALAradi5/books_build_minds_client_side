@@ -13,6 +13,7 @@ import { bookColumns } from "@/constants/catalog/bookColumns";
 import { CollectionView } from "@/enums/shared/CollectionView";
 import { useBookCatalog } from "@/hooks/books/useBookCatalog";
 import type { BookBrowserProps } from "@/props/catalog/BookBrowserProps";
+import TopCategoryBooks from "./TopCategoryBooks";
 
 const BookBrowser = ({ initialPage }: BookBrowserProps) => {
   const state = useBookCatalog(initialPage);
@@ -26,6 +27,7 @@ const BookBrowser = ({ initialPage }: BookBrowserProps) => {
       summary={(state.activeFilters.length > 0 || state.appliedCondition) && <HStack wrap="wrap" gap="2" aria-label="Applied filters"><Text fontSize="xs" color="fg.muted">Applied:</Text>{state.activeFilters.map((label) => <Badge key={label} colorPalette="green" borderRadius="full" px="3" py="1">{label}</Badge>)}{state.appliedCondition && <GenericStatusBadge value={state.appliedCondition} labels={bookStatusLabels} colors={bookStatusColors} />}</HStack>}>
       <BookFilterFields form={state.form} update={state.update} />
     </GenericFilter>
+    <TopCategoryBooks />
     {state.error && <Text color="red.600" _dark={{ color: "red.300" }} role="alert" mt="4">{state.error}</Text>}
     <Text role="status" aria-live="polite" fontSize="sm" color="fg.muted" my="5">{state.loading ? "Updating collection…" : `${state.result.pagination.total} books found · Page ${state.result.pagination.page} of ${Math.max(1, state.result.pagination.pages)}`}</Text>
     <Box aria-busy={state.loading} opacity={state.loading ? 0.6 : 1}>

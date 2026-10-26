@@ -6,6 +6,7 @@ export interface CreateBookInput {
   isbn: string;
   author: string;
   publisher: string;
+  categoryIds: number[];
   publishedAt: string;
   price: number;
   copiesTotal: number;

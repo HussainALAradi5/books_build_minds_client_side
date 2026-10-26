@@ -15,6 +15,7 @@ const cleanFilters = (filters: BookFilters): BookFilters => ({
     perPage: Math.min(50, Math.max(1, Math.floor(filters.perPage || 3))),
     q: filters.q?.trim() || undefined,
     publisher: filters.publisher?.trim() || undefined,
+    category: filters.category?.trim() || undefined,
 });
 
 export const bookService = {

@@ -1,5 +1,6 @@
 import type { BaseEntity } from "@/interfaces/shared/BaseEntity";
 import type { BookStatus } from "@/enums/books/BookStatus";
+import type { Category } from "@/interfaces/catalog/Category";
 
 export interface BookSummary extends BaseEntity {
   bookId: number;
@@ -9,6 +10,7 @@ export interface BookSummary extends BaseEntity {
   title: string;
   author: string;
   publisher: string;
+  categories: Category[];
   publishedAt: string;
   price: number;
   averageRating: number;

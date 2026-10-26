@@ -17,6 +17,7 @@ const BookCard = ({ book }: BookCardProps) => <GenericCard
     <HStack gap="1" fontSize="sm" color="fg.muted"><LuStar aria-hidden="true" /><Text>{book.averageRating > 0 ? book.averageRating.toFixed(1) : "Not rated"}</Text></HStack>
   </HStack>
   <Box minH="16"><Heading as="h3" fontSize="xl" lineClamp={2}>{book.title}</Heading><Text color="fg.muted" fontSize="sm" mt="1" lineClamp={1}>{book.author}</Text></Box>
+  <HStack gap="1" wrap="wrap">{book.categories.slice(0, 2).map((category) => <Badge key={category.categoryId} colorPalette="teal" borderRadius="full" px="2">{category.name}</Badge>)}</HStack>
   <HStack justify="space-between" gap="3" pt="3" borderTopWidth="1px" borderColor="border.subtle"><Text fontWeight="bold" fontSize="lg">{book.price.toFixed(3)} <Text as="span" fontWeight="normal" fontSize="xs" color="fg.muted">BHD</Text></Text>
     <Text fontSize="xs" color="fg.muted">{book.availableCopies} available</Text></HStack>
 </GenericCard>;

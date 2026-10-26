@@ -17,6 +17,8 @@ export const useAdminBookForm = () => {
     event.preventDefault(); setError(""); setBusy(true);
     const form = event.currentTarget;
     const book = formDataToObject<CreateBookInput>(new FormData(form), bookFormFields);
+    if (!book.author || !book.publisher) { setError("Select an existing author and publisher. Add missing profiles in Catalog first."); setBusy(false); return; }
+    if (!book.categoryIds.length || book.categoryIds.length > 5) { setError("Choose between 1 and 5 categories."); setBusy(false); return; }
     try {
       const result = await bookService.create(book);
       setCreatedBookId(result.book.bookId);
